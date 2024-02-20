@@ -18,8 +18,13 @@ export default function Weddings() {
 
   return (
     <section>
-      {weddings.map((wedding) => (
-        <WeddingDisplay key={wedding.id} name={wedding.name} venue={wedding.venue} />
+      {weddings?.map((wedding) => (
+        <WeddingDisplay
+          key={wedding.id}
+          id={wedding.id}
+          name={wedding.name}
+          venue={wedding.venue}
+        />
       ))}
     </section>
   );

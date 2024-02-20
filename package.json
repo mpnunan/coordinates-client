@@ -22,6 +22,7 @@
     "@emotion/styled": "^11.11.0",
     "@fontsource/roboto": "^5.0.8",
     "@mui/base": "^5.0.0-beta.36",
+    "@mui/icons-material": "^5.15.10",
     "@mui/material": "^5.15.10",
     "@mui/system": "^5.15.9",
     "axios": "^0.21.1",

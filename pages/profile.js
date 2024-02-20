@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import { Paper, Typography } from '@mui/material';
 import { useAuth } from '../utils/context/authContext';
 
