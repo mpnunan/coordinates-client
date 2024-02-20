@@ -1,8 +1,8 @@
 import coordinates from '../axiosConfig';
 
-const getReceptionTables = async () => {
-  const receptionTables = await coordinates.get('/reception_tables');
-  return Object.values(receptionTables);
+const getReceptionTables = async (weddingId) => {
+  const receptionTables = await coordinates.get(`/reception_tables?wedding=${weddingId}`);
+  return Object.values(receptionTables.data);
 };
 
 const getSingleReceptionTable = async (receptionTableId) => {
