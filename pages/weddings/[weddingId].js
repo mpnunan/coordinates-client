@@ -18,7 +18,7 @@ export default function DeleteWedding() {
 
   useEffect(() => {
     getSingleWedding(user.uid, weddingId).then(setWedding);
-  }, [weddingId]);
+  }, [user.uid, weddingId]);
 
   return (
     <Paper elevation={24}>
