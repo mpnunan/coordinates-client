@@ -10,10 +10,10 @@ export default function Profile() {
         <Typography variant="h2" component="h1">
           {user.fbUser.displayName}
         </Typography>
-        <Typography variant="body">
+        <Typography variant="h5" component="h2">
           {user.email}
         </Typography>
-        <Typography variant="body">
+        <Typography variant="h5" compnent="h3">
           {user.phone_number}
         </Typography>
       </Paper>

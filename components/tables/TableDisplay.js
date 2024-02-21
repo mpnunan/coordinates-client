@@ -1,5 +1,6 @@
 import {
   Button,
+  ButtonGroup,
   List,
   ListItem,
   ListItemText,
@@ -30,9 +31,17 @@ export default function TableDisplay({
           </ListItem>
         ))}
       </List>
-      <Link passHref href={`/table/edit/${id}`}>
-        <Button>Alter Table Guests</Button>
-      </Link>
+      <ButtonGroup>
+        <Link passHref href={`/table/edit/${id}`}>
+          <Button>Alter Table Guests</Button>
+        </Link>
+        <Link passHref href={`/table/detailEdit/${id}`}>
+          <Button>Alter Table</Button>
+        </Link>
+        <Link passHref href={`/table/${id}`}>
+          <Button>Table Details</Button>
+        </Link>
+      </ButtonGroup>
     </Paper>
   );
 }
