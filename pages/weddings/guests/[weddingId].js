@@ -1,6 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { List, Paper, Typography } from '@mui/material';
+import {
+  Button,
+  List,
+  Paper,
+  Typography,
+} from '@mui/material';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { getGuests } from '../../../utils/data/guestData';
 import GuestList from '../../../components/guests/GuestList';
@@ -20,7 +26,10 @@ export default function WeddingGuests() {
 
   return (
     <Paper elevation={24}>
-      <Typography variant="h1">Guest List</Typography>
+      <Typography variant="h2" component="h1">Guest List</Typography>
+      <Link passHref href={`/guest/new/${weddingId}`}>
+        <Button>Add a Guest</Button>
+      </Link>
       <List>
         {guests?.map((guest) => (
           <GuestList

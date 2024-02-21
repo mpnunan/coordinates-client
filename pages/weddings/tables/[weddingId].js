@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Paper, Typography } from '@mui/material';
+import Link from 'next/link';
+import { Button, Paper, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { getReceptionTables } from '../../../utils/data/receptionTableData';
@@ -18,11 +19,12 @@ export default function WeddingTables() {
     getTables();
   }, []);
 
-  console.warn(tables);
-
   return (
     <Paper elevation={24}>
-      <Typography variant="h1">Wedding Tables</Typography>
+      <Typography variant="h2" component="h1">Wedding Tables</Typography>
+      <Link passHref href={`/table/new/${weddingId}`}>
+        <Button>Add a Table</Button>
+      </Link>
       {tables?.map((table) => (
         <TableDisplay
           key={`${table.id}-display`}

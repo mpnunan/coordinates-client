@@ -20,7 +20,10 @@ export default function GuestList({
         {seated ? <EventSeat /> : <EventSeatOutlined />}
       </ListItemIcon>
       <Link passHref href={`/guest/${id}`}>
-        <ListItemButton>Details</ListItemButton>
+        <ListItemButton>Guest Details</ListItemButton>
+      </Link>
+      <Link passHref href={`/guest/edit/${id}`}>
+        <ListItemButton>Alter Guest</ListItemButton>
       </Link>
     </ListItem>
   );
