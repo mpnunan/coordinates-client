@@ -21,7 +21,7 @@ export default function WeddingTables() {
 
   return (
     <Paper elevation={24}>
-      <Typography variant="h2" component="h1">Wedding Tables</Typography>
+      <Typography variant="h1">Wedding Tables</Typography>
       <Link passHref href={`/table/new/${weddingId}`}>
         <Button>Add a Table</Button>
       </Link>

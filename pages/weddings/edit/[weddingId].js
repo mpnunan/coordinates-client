@@ -17,7 +17,7 @@ export default function WeddingEdits() {
 
   return (
     <Paper elevation={24}>
-      <Typography variant="h2" component="h1">Edit Wedding</Typography>
+      <Typography variant="h1">Edit Wedding</Typography>
       <WeddingForm
         key={`update-${wedding.id}`}
         id={wedding.id}

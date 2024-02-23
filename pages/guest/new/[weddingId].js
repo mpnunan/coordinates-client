@@ -9,7 +9,7 @@ export default function NewGuest() {
 
   return (
     <Paper elevation={24}>
-      <Typography variant="h2" component="h1">New Guest</Typography>
+      <Typography variant="h1">New Guest</Typography>
       <GuestForm wedding={weddingIdNum} />
     </Paper>
   );

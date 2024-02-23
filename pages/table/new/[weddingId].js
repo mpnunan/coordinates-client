@@ -9,7 +9,7 @@ export default function NewTable() {
 
   return (
     <Paper elevation={24}>
-      <Typography variant="h2" component="h1">New Table</Typography>
+      <Typography variant="h1">New Table</Typography>
       <TableForm wedding={wedding} />
     </Paper>
   );

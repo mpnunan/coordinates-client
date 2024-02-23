@@ -7,7 +7,7 @@ export default function Profile() {
   return (
     <section>
       <Paper elevation={24}>
-        <Typography variant="h2" component="h1">
+        <Typography variant="h1">
           {user.fbUser.displayName}
         </Typography>
         <Typography variant="h5" component="h2">

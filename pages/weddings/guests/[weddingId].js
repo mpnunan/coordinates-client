@@ -26,7 +26,7 @@ export default function WeddingGuests() {
 
   return (
     <Paper elevation={24}>
-      <Typography variant="h2" component="h1">Guest List</Typography>
+      <Typography variant="h1">Guest List</Typography>
       <Link passHref href={`/guest/new/${weddingId}`}>
         <Button>Add a Guest</Button>
       </Link>

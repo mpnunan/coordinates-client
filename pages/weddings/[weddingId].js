@@ -22,7 +22,7 @@ export default function DeleteWedding() {
 
   return (
     <Paper elevation={24}>
-      <Typography variant="h2" component="h1">{wedding.name}</Typography>
+      <Typography variant="h1">{wedding.name}</Typography>
       <Typography variant="body">{wedding.venue}</Typography>
       <Button onClick={onDelete}>Cancel Wedding</Button>
     </Paper>
