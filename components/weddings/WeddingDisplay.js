@@ -14,8 +14,8 @@ export default function WeddingDisplay({
 }) {
   return (
     <div>
-      <Paper elevation={24}>
-        <Typography variant="h4" component="h2">
+      <Paper elevation={16}>
+        <Typography variant="h3">
           {name}
         </Typography>
         <Typography variant="body">

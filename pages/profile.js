@@ -13,7 +13,7 @@ export default function Profile() {
         <Typography variant="h5" component="h2">
           {user.email}
         </Typography>
-        <Typography variant="h5" compnent="h3">
+        <Typography variant="h5" component="h3">
           {user.phone_number}
         </Typography>
       </Paper>

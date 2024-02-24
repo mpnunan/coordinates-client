@@ -5,8 +5,8 @@ import {
   Navbar, //
   Container,
   Nav,
-  Button,
 } from 'react-bootstrap';
+import { Button } from '@mui/material';
 import { signOut } from '../utils/auth';
 
 export default function NavBar() {
@@ -26,7 +26,7 @@ export default function NavBar() {
             <Link passHref href="/profile">
               <Nav.Link>My Profile</Nav.Link>
             </Link>
-            <Button variant="danger" onClick={signOut}>
+            <Button onClick={signOut}>
               Sign Out
             </Button>
           </Nav>

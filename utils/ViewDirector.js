@@ -5,21 +5,13 @@ import Loading from '../components/Loading';
 import Signin from '../components/Signin';
 import NavBar from '../components/NavBar';
 import RegisterForm from '../components/RegisterForm';
+import styleConfig from './data/styleConfig';
 
 const ViewDirectorBasedOnUserAuthStatus = ({ component: Component, pageProps }) => {
   const { user, userLoading, updateUser } = useAuth();
 
   const inputGlobalStyles = (
-    <GlobalStyles styles={{
-      h1: { fontSize: '42px' },
-      'h1.MuiTypography-root': { fontSize: '42px' },
-      'h2.MuiTypography-root': { fontSize: '32px' },
-      '.MuiPaper-root': {
-        display: 'flex',
-        flexDirection: 'column',
-      },
-    }}
-    />
+    <GlobalStyles styles={styleConfig} />
   );
   // if user state is null, then show loader
   if (userLoading) {
