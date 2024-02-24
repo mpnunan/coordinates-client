@@ -15,7 +15,7 @@ export default function TableDetailEdit() {
 
   return (
     <Paper elevation={24}>
-      <Typography variant="h2" component="h1">Edit Table Details</Typography>
+      <Typography variant="h1">Edit Table Details</Typography>
       <TableForm
         key={`update-${table.id}`}
         id={table.id}

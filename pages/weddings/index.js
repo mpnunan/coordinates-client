@@ -20,9 +20,9 @@ export default function Weddings() {
 
   return (
     <Paper elevation={24}>
-      <Typography variant="h2" component="h1">{`${user.first_name} ${user.last_name}'s Weddings`}</Typography>
+      <Typography variant="h1">{`${user.first_name} ${user.last_name}'s Weddings`}</Typography>
       <Link passHref href="/weddings/new">
-        <Button>Add a Wedding</Button>
+        <Button variant="outlined">Add a Wedding</Button>
       </Link>
       <section>
         {weddings?.map((wedding) => (

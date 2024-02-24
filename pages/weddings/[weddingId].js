@@ -18,11 +18,11 @@ export default function DeleteWedding() {
 
   useEffect(() => {
     getSingleWedding(user.uid, weddingId).then(setWedding);
-  }, [weddingId]);
+  }, [user.uid, weddingId]);
 
   return (
     <Paper elevation={24}>
-      <Typography variant="h2" component="h1">{wedding.name}</Typography>
+      <Typography variant="h1">{wedding.name}</Typography>
       <Typography variant="body">{wedding.venue}</Typography>
       <Button onClick={onDelete}>Cancel Wedding</Button>
     </Paper>

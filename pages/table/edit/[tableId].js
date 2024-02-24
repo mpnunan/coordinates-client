@@ -1,7 +1,6 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { List } from '@mui/material';
+import { List, Paper, Typography } from '@mui/material';
 import { getSingleReceptionTable } from '../../../utils/data/receptionTableData';
 import { getGuests } from '../../../utils/data/guestData';
 import TableGuest from '../../../components/tables/TableGuest';
@@ -40,24 +39,24 @@ export default function TableEdit() {
   }, [weddingId]);
 
   return (
-    <section>
-      <h1>{`Table ${table.number}`}</h1>
-      <div>
-        <h2>Seated Guests</h2>
+    <Paper elevation={24}>
+      <Typography variant="h1">{`Table ${table.number}`}</Typography>
+      <Paper elevation={18}>
+        <Typography variant="h2">Seated Guests</Typography>
         <List>
           {guests?.map((guest) => (
             guest.table_number === table.number ? <TableGuest key={`${guest.id}-seated`} id={guest.id} fullName={guest.full_name} tableId={tableIdProp} onUpdate={updateGuests} /> : null
           ))}
         </List>
-      </div>
-      <div>
-        <h2>Available Guests</h2>
+      </Paper>
+      <Paper elevation={18}>
+        <Typography variant="h2">Available Guests</Typography>
         <List>
           {guests?.map((guest) => (
             guest.seated === false ? <NotTableGuest key={`${guest.id}-available`} id={guest.id} fullName={guest.full_name} tableId={tableIdProp} onUpdate={updateGuests} /> : null
           ))}
         </List>
-      </div>
-    </section>
+      </Paper>
+    </Paper>
   );
 }

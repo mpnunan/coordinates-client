@@ -20,7 +20,7 @@ export default function DeleteTable() {
 
   return (
     <Paper elevation={24}>
-      <Typography variant="h2" component="h1">{`Table ${table.number}`}</Typography>
+      <Typography variant="h1">{`Table ${table.number}`}</Typography>
       <Typography variant="body">{`Seats ${table.capacity} guests`}</Typography>
       <Button onClick={onDelete}>Remove Table</Button>
     </Paper>

@@ -18,7 +18,7 @@ export default function TableDisplay({
   full,
 }) {
   return (
-    <Paper elevation={12}>
+    <Paper elevation={16}>
       <Typography variant="h3" component="h2">{`Table ${number}`}</Typography>
       <Typography variant="h4" component="h3">
         {full ? 'Table Full' : `${guests.length} of ${capacity} seats`}
