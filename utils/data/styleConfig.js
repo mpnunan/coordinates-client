@@ -26,6 +26,9 @@ const styleConfig = {
     padding: '32px',
     marginBottom: '12px',
   },
+  '.MuiButtonGroup-root': {
+    margin: '8px',
+  },
   '.MuiButtonBase-root.MuiButton-root': {
     width: 'fit-content',
     padding: '8px 16px',
@@ -49,8 +52,11 @@ const styleConfig = {
     justifyContent: 'space-evenly',
     padding: '16px',
   },
+  '.MuiPaper-root > .MuiButton-outlined': {
+    margin: '12px',
+  },
   '.MuiList-root': {
-    width: '40%',
+    width: '60%',
   },
   '.MuiListItemText-root': {
     width: '35%',

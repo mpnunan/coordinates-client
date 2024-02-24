@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {
   Button,
+  ButtonGroup,
   List,
   Paper,
   Typography,
@@ -27,9 +28,17 @@ export default function WeddingGuests() {
   return (
     <Paper elevation={24}>
       <Typography variant="h1">Guest List</Typography>
-      <Link passHref href={`/guest/new/${weddingId}`}>
-        <Button>Add a Guest</Button>
-      </Link>
+      <ButtonGroup>
+        <Link passHref href="/weddings">
+          <Button>Back to Weddings</Button>
+        </Link>
+        <Link passHref href={`/guest/new/${weddingId}`}>
+          <Button>Add a Guest</Button>
+        </Link>
+        <Link passHref href={`/weddings/tables/${weddingId}`}>
+          <Button>Manage Tables</Button>
+        </Link>
+      </ButtonGroup>
       <List>
         {guests?.map((guest) => (
           <GuestList
