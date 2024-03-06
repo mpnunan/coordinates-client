@@ -18,15 +18,15 @@ const createWeddding = async (uid, payload) => {
   return wedding.data;
 };
 
-const updateWedding = async (uid, payload, weddingId) => {
+const updateWedding = async (uid, uuid, payload) => {
   coordinates.defaults.headers.common.Authorization = uid;
-  const wedding = await coordinates.put(`/weddings/${weddingId}`, payload);
+  const wedding = await coordinates.put(`/weddings/${uuid}`, payload);
   return wedding.data;
 };
 
-const deleteWedding = async (uid, weddingId) => {
+const deleteWedding = async (uid, uuid) => {
   coordinates.defaults.headers.common.Authorization = uid;
-  const wedding = await coordinates.delete(`/weddings/${weddingId}`);
+  const wedding = await coordinates.delete(`/weddings/${uuid}`);
   return wedding.data;
 };
 

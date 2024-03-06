@@ -27,10 +27,10 @@ export default function Weddings() {
       <section>
         {weddings?.map((wedding) => (
           <WeddingDisplay
-            key={wedding.id}
-            id={wedding.id}
-            name={wedding.name}
-            venue={wedding.venue}
+            key={wedding.wedding.id}
+            id={wedding.wedding.id}
+            name={wedding.wedding.name}
+            venue={wedding.wedding.venue}
           />
         ))}
       </section>

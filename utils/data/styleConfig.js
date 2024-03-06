@@ -26,6 +26,9 @@ const styleConfig = {
     padding: '32px',
     marginBottom: '12px',
   },
+  '.MuiPaper-root.MuiPaper-elevation': {
+    backgroundColor: 'transparent',
+  },
   '.MuiButtonGroup-root': {
     margin: '8px',
   },
@@ -38,12 +41,14 @@ const styleConfig = {
     marginTop: '16px',
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: '76px',
   },
   '.MuiPaper-root.MuiPaper-elevation24': {
     minHeight: '80svh',
     marginTop: '16px',
     alignItems: 'space-evenly',
     justifyContent: 'start',
+    backdropFilter: 'blur(1px)',
   },
   '.MuiPaper-root.MuiPaper-elevation16': {
     height: 'fit-content',

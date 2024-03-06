@@ -10,14 +10,16 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { getReceptionTables } from '../../../utils/data/receptionTableData';
 import TableDisplay from '../../../components/tables/TableDisplay';
+import { useAuth } from '../../../utils/context/authContext';
 
 export default function WeddingTables() {
   const [tables, setTables] = useState([]);
   const router = useRouter();
   const { weddingId } = router.query;
+  const { user } = useAuth();
 
   const getTables = () => {
-    getReceptionTables(weddingId).then(setTables);
+    getReceptionTables(user.uid, weddingId).then((data) => setTables(data.reception_tables));
   };
 
   useEffect(() => {

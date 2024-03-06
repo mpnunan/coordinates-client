@@ -11,14 +11,16 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { getGuests } from '../../../utils/data/guestData';
 import GuestList from '../../../components/guests/GuestList';
+import { useAuth } from '../../../utils/context/authContext';
 
 export default function WeddingGuests() {
   const [guests, setGuests] = useState([]);
   const router = useRouter();
   const { weddingId } = router.query;
+  const { user } = useAuth();
 
   const allGuests = () => {
-    getGuests(weddingId).then(setGuests);
+    getGuests(user.uid, weddingId).then((data) => setGuests(data.guests));
   };
 
   useEffect(() => {
