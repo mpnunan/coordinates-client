@@ -1,12 +1,27 @@
 @import 'bootstrap/dist/css/bootstrap.css';
 
-html,
+html {
+  min-height: 100vh;
+  min-width: 100vw;
+  padding: 0;
+  margin: 0;
+}
+
 body {
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-    min-height: 100vh;
+  min-height: 100vh;
+  width: 100vw;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+
+#__next {
+  height: 100%;
+  width: 100%;
 }
 
 a {
@@ -16,6 +31,16 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+.container {
+  height: fit-content;
+  min-height: 100%;
+  width: 100%;
+  padding: 42px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 body {

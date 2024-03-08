@@ -3,10 +3,10 @@ import { GlobalStyles } from '@mui/material';
 import { useAuth } from './context/authContext';
 import Loading from '../components/Loading';
 import Signin from '../components/Signin';
-// import NavBar from '../components/NavBar';
 import RegisterForm from '../components/RegisterForm';
 import styleConfig from './data/styleConfig';
-import Header from '../components/Header';
+// import Header from '../components/Header';
+import NavMenu from '../components/NavMenu';
 
 const ViewDirectorBasedOnUserAuthStatus = ({ component: Component, pageProps }) => {
   const { user, userLoading, updateUser } = useAuth();
@@ -24,7 +24,7 @@ const ViewDirectorBasedOnUserAuthStatus = ({ component: Component, pageProps }) 
     return (
       <>
         {inputGlobalStyles}
-        <Header /> {/* NavBar only visible if user is logged in and is in every view */}
+        <NavMenu /> {/* NavBar only visible if user is logged in and is in every view */}
         <div className="container">{'valid' in user ? <RegisterForm user={user} updateUser={updateUser} /> : <Component {...pageProps} />}</div>
       </>
     );
