@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Paper, Typography } from '@mui/material';
@@ -8,7 +9,7 @@ import getParticipants from '../../../utils/data/participantData';
 import SortedGuestList from '../../../components/guests/SortedGuestList';
 
 export default function WeddingGuestList() {
-  const [participantA, setParticipantA] = useState({});
+  const [participantA, setParticipantA] = useState([]);
   const [participantB, setParticipantB] = useState({});
   const [sideAGuestList, setSideAGuestList] = useState({});
   const [sideBGuestList, setSideBGuestList] = useState({});
@@ -16,22 +17,26 @@ export default function WeddingGuestList() {
   const router = useRouter();
   const { weddingId } = router.query;
 
-  useEffect(() => {
-    getGuestList(user.uid, weddingId, participantA.id)
-      .then(setSideAGuestList);
-  }, [participantA.id, user.uid, weddingId]);
+  const setGuestList = (a, b) => {
+    getGuestList(user.uid, weddingId, a.id)
+      .then(setSideAGuestList)
+      .then(() => {
+        getGuestList(user.uid, weddingId, b.id)
+          .then(setSideBGuestList);
+      });
+  };
 
   useEffect(() => {
-    getGuestList(user.uid, weddingId, participantB.id)
-      .then(setSideBGuestList);
-  }, [participantB.id, user.uid, weddingId]);
-
-  useEffect(() => {
-    getParticipants(user.uid, weddingId).then((weddingData) => {
-      setParticipantA(weddingData[0]);
-      setParticipantB(weddingData[1]);
-    });
+    getParticipants(user.uid, weddingId)
+      .then((data) => {
+        setParticipantA(data[0]);
+        setParticipantB(data[1]);
+      });
   }, [user.uid, weddingId]);
+
+  useEffect(() => {
+    setGuestList(participantA, participantB);
+  }, [participantA, participantB]);
 
   return (
     <Paper elevation={24}>
@@ -39,11 +44,25 @@ export default function WeddingGuestList() {
       <Box className="guestListSection">
         <Box className="guestListLeft">
           <Typography variant="h2">{participantA.full_name}</Typography>
-          <SortedGuestList key={`fullList-${participantA.id}`} guestListObj={sideAGuestList} />
+          <SortedGuestList
+            key={`fullList-${participantA.id}`}
+            guests={sideAGuestList.guests}
+            family={sideAGuestList.family}
+            party={sideAGuestList.party}
+            couples={sideAGuestList.couples}
+            problems={sideAGuestList.problems}
+          />
         </Box>
         <Box className="guestListRight">
           <Typography variant="h2">{participantB.full_name}</Typography>
-          <SortedGuestList key={`fullList-${participantB.id}`} guestListObj={sideBGuestList} />
+          <SortedGuestList
+            key={`fullList-${participantB.id}`}
+            guests={sideBGuestList.guests}
+            family={sideBGuestList.family}
+            party={sideBGuestList.party}
+            couples={sideBGuestList.couples}
+            problems={sideBGuestList.problems}
+          />
         </Box>
       </Box>
     </Paper>

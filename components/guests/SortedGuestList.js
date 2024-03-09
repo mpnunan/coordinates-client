@@ -1,5 +1,5 @@
 // import { useEffect, useState } from 'react';
-import { useEffect, useState } from 'react';
+// import { useEffect, useState } from 'react';
 import {
   Box,
   List,
@@ -10,25 +10,13 @@ import {
 import PropTypes from 'prop-types';
 import SortedGuest from './SortedGuest';
 
-export default function SortedGuestList({ guestListObj }) {
-  const [guests, setGuests] = useState([]);
-  const [family, setFamily] = useState([]);
-  const [party, setParty] = useState([]);
-  const [couples, setCouples] = useState([]);
-  const [problems, setProblems] = useState([]);
-
-  const sortGuests = (data) => {
-    setGuests(data?.guests);
-    setFamily(data?.family);
-    setParty(data?.party);
-    setCouples(data?.couples);
-    setProblems(data?.problems);
-  };
-
-  useEffect(() => {
-    sortGuests(guestListObj);
-  }, [guestListObj, guestListObj.guests, guestListObj.family, guestListObj.party, guestListObj.couples, guestListObj.problems]);
-
+export default function SortedGuestList({
+  guests,
+  family,
+  party,
+  couples,
+  problems,
+}) {
   return (
     <Paper className="sideList" elevation={8}>
       <Box className="sideGuestList" component="div">
@@ -129,11 +117,17 @@ export default function SortedGuestList({ guestListObj }) {
 }
 
 SortedGuestList.propTypes = {
-  guestListObj: PropTypes.shape({
-    guests: PropTypes.arrayOf(PropTypes.shape()),
-    family: PropTypes.arrayOf(PropTypes.shape()),
-    party: PropTypes.arrayOf(PropTypes.shape()),
-    couples: PropTypes.arrayOf(PropTypes.shape()),
-    problems: PropTypes.arrayOf(PropTypes.shape()),
-  }).isRequired,
+  guests: PropTypes.arrayOf(PropTypes.shape()),
+  family: PropTypes.arrayOf(PropTypes.shape()),
+  party: PropTypes.arrayOf(PropTypes.shape()),
+  couples: PropTypes.arrayOf(PropTypes.shape()),
+  problems: PropTypes.arrayOf(PropTypes.shape()),
+};
+
+SortedGuestList.defaultProps = {
+  guests: [],
+  family: [],
+  party: [],
+  couples: [],
+  problems: [],
 };
