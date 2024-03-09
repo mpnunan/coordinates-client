@@ -6,12 +6,12 @@ import GuestForm from '../../../components/forms/GuestForm';
 
 export default function GuestEdit() {
   const router = useRouter();
-  const { guestId } = router.query;
+  const { guestUuid } = router.query;
   const [guest, setGuest] = useState({});
 
   useEffect(() => {
-    getSingleGuest(guestId).then(setGuest);
-  }, [guestId]);
+    getSingleGuest(guestUuid).then(setGuest);
+  }, [guestUuid]);
 
   return (
     <Paper elevation={24}>
