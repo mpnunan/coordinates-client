@@ -13,7 +13,7 @@ import { getGuests } from '../../../utils/data/guestData';
 import GuestList from '../../../components/guests/GuestList';
 import { useAuth } from '../../../utils/context/authContext';
 
-export default function WeddingGuests() {
+export default function WeddingGuestsOld() {
   const [guests, setGuests] = useState([]);
   const router = useRouter();
   const { weddingId } = router.query;

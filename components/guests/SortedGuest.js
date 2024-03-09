@@ -1,11 +1,10 @@
 import { EventSeat, EventSeatOutlined } from '@mui/icons-material';
 import {
-  Link,
   ListItem,
-  ListItemButton,
   ListItemIcon,
   ListItemText,
 } from '@mui/material';
+import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 
@@ -22,7 +21,7 @@ export default function SortedGuest({
 }) {
   const [classList, setClassList] = ('');
 
-  const guestClassList = (identObj) => {
+  const guestClassList = async (identObj) => {
     let classString = '';
     const classes = Object.entries(identObj);
     classes.forEach((identifier) => {
@@ -30,7 +29,7 @@ export default function SortedGuest({
         classString += identifier[0];
       }
     });
-    setClassList(classString);
+    return classString;
   };
 
   useEffect(() => {
@@ -39,7 +38,7 @@ export default function SortedGuest({
       primary,
       family,
       parent,
-    });
+    }).then(setClassList);
   }, [party, primary, family, parent]);
 
   return (
@@ -51,10 +50,19 @@ export default function SortedGuest({
         <ListItemIcon>
           {seated ? <EventSeat /> : <EventSeatOutlined />}
         </ListItemIcon>
-        <ListItemText>{fullName}</ListItemText>
-        <Link passhref href={uuid ? `/guest/edit/${uuid}` : `/guest/details/${id}`}>
-          <ListItemButton>Details</ListItemButton>
-        </Link>
+        <ListItemText>
+          {uuid
+            ? (
+              <Link passHref href={`/guest/edit/${uuid}`}>
+                {fullName}
+              </Link>
+            )
+            : (
+              <Link passHref href={`/guest/details/${id}`}>
+                {fullName}
+              </Link>
+            )}
+        </ListItemText>
       </ListItem>
     </>
   );
