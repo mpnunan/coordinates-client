@@ -6,7 +6,7 @@ import {
 } from '@mui/material';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function SortedGuest({
   id,
@@ -19,7 +19,7 @@ export default function SortedGuest({
   seated,
   tableNumber,
 }) {
-  const [classList, setClassList] = ('');
+  const [classList, setClassList] = useState('');
 
   const guestClassList = async (identObj) => {
     let classString = '';

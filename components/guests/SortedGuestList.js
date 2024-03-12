@@ -20,8 +20,8 @@ export default function SortedGuestList({
   return (
     <Paper className="sideList" elevation={8}>
       <Box className="sideGuestList" component="div">
-        <Typography variant="h3">Guests</Typography>
-        <List>
+        <Typography className="listTitle" variant="h3">Guests</Typography>
+        <List className="guestList-list">
           {guests?.map((guest) => (
             <SortedGuest
               key={`guestList-guest-${guest.id}`}
@@ -38,9 +38,10 @@ export default function SortedGuestList({
           ))}
         </List>
       </Box>
-      <Box component="div">
+      <Box className="insideGuestList" component="div">
         <Box className="familyList" component="div">
-          <List>
+          <Typography className="listTitle" variant="h3">Family</Typography>
+          <List className="guestList-list">
             {family?.map((guest) => (
               <SortedGuest
                 key={`guestList-family-${guest.id}`}
@@ -58,7 +59,8 @@ export default function SortedGuestList({
           </List>
         </Box>
         <Box className="partyList" component="div">
-          <List>
+          <Typography className="listTitle" variant="h3">Wedding Party</Typography>
+          <List className="guestList-list">
             {party?.map((guest) => (
               <SortedGuest
                 key={`guestList-party-${guest.id}`}
@@ -76,7 +78,8 @@ export default function SortedGuestList({
           </List>
         </Box>
         <Box className="couplesList" component="div">
-          <List>
+          <Typography className="listTitle" variant="h3">Couples</Typography>
+          <List className="guestList-list">
             {couples?.map((guest) => (
               <SortedGuest
                 key={`guestList-couples-${guest.id}`}
@@ -94,7 +97,8 @@ export default function SortedGuestList({
           </List>
         </Box>
         <Box className="ProblemsList" component="div">
-          <List>
+          <Typography className="listTitle" variant="h3">Space Required</Typography>
+          <List className="guestList-list">
             {problems?.map((guest) => (
               <SortedGuest
                 key={`guestList-problems-${guest.id}`}

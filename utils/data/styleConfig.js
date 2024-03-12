@@ -72,10 +72,8 @@ const styleConfig = {
     width: 'fit-content',
     padding: '4px 16px',
   },
-  '..MuiListItem-root .MuiListItemIcon-root': {
-    width: 'fit-content',
-    height: '100%',
-    padding: '4px 4px',
+  '.MuiListItem-root .MuiListItemIcon-root': {
+    minWidth: '0px',
   },
 };
 
