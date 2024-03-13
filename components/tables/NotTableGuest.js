@@ -29,6 +29,6 @@ export default function NotTableGuest({
 NotTableGuest.propTypes = {
   id: PropTypes.number.isRequired,
   fullName: PropTypes.string.isRequired,
-  tableId: PropTypes.number.isRequired,
+  tableId: PropTypes.string.isRequired,
   onUpdate: PropTypes.func.isRequired,
 };

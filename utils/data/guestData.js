@@ -12,6 +12,12 @@ const getGuestList = async (uid, weddingId, participantId) => {
   return guests.data;
 };
 
+const getUnseatedGuests = async (uid, weddingId) => {
+  coordinates.defaults.headers.common.Authorization = uid;
+  const guests = await coordinates.get(`/unseated/${weddingId}`);
+  return guests.data;
+};
+
 const getSingleGuest = async (guestId) => {
   const guest = await coordinates.get(`/guests/${guestId}/read_only`);
   return guest.data;
@@ -35,6 +41,7 @@ const deleteGuest = async (uuid) => {
 export {
   getGuests,
   getGuestList,
+  getUnseatedGuests,
   getSingleGuest,
   createGuest,
   updateGuest,

@@ -19,7 +19,7 @@ export default function TableGuest({
   };
 
   return (
-    <ListItem>
+    <ListItem className="tableGuest">
       <ListItemText>{fullName}</ListItemText>
       <ListItemButton onClick={removeGuest}>Remove from Table</ListItemButton>
     </ListItem>
@@ -29,6 +29,6 @@ export default function TableGuest({
 TableGuest.propTypes = {
   id: PropTypes.number.isRequired,
   fullName: PropTypes.string.isRequired,
-  tableId: PropTypes.number.isRequired,
+  tableId: PropTypes.string.isRequired,
   onUpdate: PropTypes.func.isRequired,
 };

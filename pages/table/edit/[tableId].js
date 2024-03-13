@@ -5,6 +5,7 @@ import { getSingleReceptionTable } from '../../../utils/data/receptionTableData'
 import { getGuests } from '../../../utils/data/guestData';
 import TableGuest from '../../../components/tables/TableGuest';
 import NotTableGuest from '../../../components/tables/NotTableGuest';
+import { useAuth } from '../../../utils/context/authContext';
 
 export default function TableEdit() {
   const [table, setTable] = useState({});
@@ -12,8 +13,7 @@ export default function TableEdit() {
   const [guests, setGuests] = useState([]);
   const router = useRouter();
   const { tableId } = router.query;
-
-  const tableIdProp = Number(tableId);
+  const { user } = useAuth();
 
   const getTable = (id) => {
     getSingleReceptionTable(id).then((data) => {
@@ -22,12 +22,12 @@ export default function TableEdit() {
     });
   };
 
-  const guestList = (wedding) => {
-    getGuests(wedding).then(setGuests);
+  const guestList = (uid, wedding) => {
+    getGuests(uid, wedding).then((data) => setGuests(data.guests));
   };
 
   const updateGuests = () => {
-    guestList(weddingId);
+    guestList(user.uid, weddingId);
   };
 
   useEffect(() => {
@@ -35,8 +35,10 @@ export default function TableEdit() {
   }, [tableId]);
 
   useEffect(() => {
-    guestList(weddingId);
-  }, [weddingId]);
+    guestList(user.uid, weddingId);
+  }, [user.uid, weddingId]);
+
+  console.warn(weddingId);
 
   return (
     <Paper elevation={24}>
@@ -45,7 +47,7 @@ export default function TableEdit() {
         <Typography variant="h2">Seated Guests</Typography>
         <List>
           {guests?.map((guest) => (
-            guest.table_number === table.number ? <TableGuest key={`${guest.id}-seated`} id={guest.id} fullName={guest.full_name} tableId={tableIdProp} onUpdate={updateGuests} /> : null
+            guest.table_number === table.number ? <TableGuest key={`${guest.id}-seated`} id={guest.id} fullName={guest.full_name} tableId={tableId} onUpdate={updateGuests} /> : null
           ))}
         </List>
       </Paper>
@@ -53,7 +55,7 @@ export default function TableEdit() {
         <Typography variant="h2">Available Guests</Typography>
         <List>
           {guests?.map((guest) => (
-            guest.seated === false ? <NotTableGuest key={`${guest.id}-available`} id={guest.id} fullName={guest.full_name} tableId={tableIdProp} onUpdate={updateGuests} /> : null
+            guest.seated === false ? <NotTableGuest key={`${guest.id}-available`} id={guest.id} fullName={guest.full_name} tableId={tableId} onUpdate={updateGuests} /> : null
           ))}
         </List>
       </Paper>
