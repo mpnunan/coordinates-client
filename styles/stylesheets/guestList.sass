@@ -5,6 +5,7 @@
     justify-content: space-between
     &-participant.MuiBox-root
         margin: min(4px)
+        min-width: 40%
         h3.listTitle
             font-size: 20px
             text-decoration: underline
@@ -25,11 +26,15 @@
         flex-direction: column
         justify-content: flex-start
         margin: 4px
+        width: 50%
     .insideGuestList
         display: flex
         flex-direction: column
         justify-content: flex-start
         margin: 4px
+        width: 50%
+        .sortedList 
+            width: 100%
     &-0 .sideGuestList, &-0 .insideGuestList
         align-items: flex-start
     &-1 
@@ -46,6 +51,8 @@
            align-items: flex-end
         li.MuiListItem-root
             flex-direction: row-reverse
+            text-align: right
+            width: 100%
 @media (max-width: $breakpoint-md)
     .guestList
         flex-direction: column

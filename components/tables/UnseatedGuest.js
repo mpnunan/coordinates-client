@@ -16,7 +16,6 @@ export default function UnseatedGuest({
   family,
   parent,
   partner,
-  side,
   onChecked,
 }) {
   const [classList, setClassList] = useState('');
@@ -47,7 +46,7 @@ export default function UnseatedGuest({
       placement="right"
       TransitionComponent={Fade}
     >
-      <Box className={`layout-unseated-guest layout-guest-${side} ${classList}`} component="div">
+      <Box className={`layout-unseated-guest ${classList}`} component="div">
         <Typography variant="body">{fullName}</Typography>
         <Checkbox
           value={uuid}
@@ -71,7 +70,6 @@ UnseatedGuest.propTypes = {
   partner: PropTypes.shape({
     full_name: PropTypes.string,
   }),
-  side: PropTypes.number.isRequired,
   onChecked: PropTypes.func.isRequired,
 };
 

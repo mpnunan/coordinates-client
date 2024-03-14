@@ -16,10 +16,11 @@ export default function SortedGuestList({
   party,
   couples,
   problems,
+  tipSide,
 }) {
   return (
     <Paper className="sideList" elevation={8}>
-      <Box className="sideGuestList" component="div">
+      <Box className="sideGuestList sortedList" component="div">
         <Typography className="listTitle" variant="h3">Guests</Typography>
         <List className="guestList-list">
           {guests?.map((guest) => (
@@ -39,7 +40,7 @@ export default function SortedGuestList({
         </List>
       </Box>
       <Box className="insideGuestList" component="div">
-        <Box className="familyList" component="div">
+        <Box className="familyList sortedList" component="div">
           <Typography className="listTitle" variant="h3">Family</Typography>
           <List className="guestList-list">
             {family?.map((guest) => (
@@ -58,7 +59,7 @@ export default function SortedGuestList({
             ))}
           </List>
         </Box>
-        <Box className="partyList" component="div">
+        <Box className="partyList sortedList" component="div">
           <Typography className="listTitle" variant="h3">Wedding Party</Typography>
           <List className="guestList-list">
             {party?.map((guest) => (
@@ -77,7 +78,7 @@ export default function SortedGuestList({
             ))}
           </List>
         </Box>
-        <Box className="couplesList" component="div">
+        <Box className="couplesList sortedList" component="div">
           <Typography className="listTitle" variant="h3">Couples</Typography>
           <List className="guestList-list">
             {couples?.map((guest) => (
@@ -96,7 +97,7 @@ export default function SortedGuestList({
             ))}
           </List>
         </Box>
-        <Box className="ProblemsList" component="div">
+        <Box className="ProblemsList sortedList" component="div">
           <Typography className="listTitle" variant="h3">Space Required</Typography>
           <List className="guestList-list">
             {problems?.map((guest) => (
@@ -111,6 +112,8 @@ export default function SortedGuestList({
                 parent={guest.family}
                 seated={guest.seated}
                 tableNumber={guest.table_number}
+                problem={guest.problem}
+                tipSide={tipSide}
               />
             ))}
           </List>
@@ -126,6 +129,7 @@ SortedGuestList.propTypes = {
   party: PropTypes.arrayOf(PropTypes.shape()),
   couples: PropTypes.arrayOf(PropTypes.shape()),
   problems: PropTypes.arrayOf(PropTypes.shape()),
+  tipSide: PropTypes.number.isRequired,
 };
 
 SortedGuestList.defaultProps = {

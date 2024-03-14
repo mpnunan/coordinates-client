@@ -1,8 +1,10 @@
 import { EventSeat, EventSeatOutlined } from '@mui/icons-material';
 import {
+  Fade,
   ListItem,
   ListItemIcon,
   ListItemText,
+  Tooltip,
 } from '@mui/material';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
@@ -18,6 +20,8 @@ export default function SortedGuest({
   parent,
   seated,
   tableNumber,
+  problem,
+  tipSide,
 }) {
   const [classList, setClassList] = useState('');
 
@@ -50,19 +54,25 @@ export default function SortedGuest({
         <ListItemIcon>
           {seated ? <EventSeat /> : <EventSeatOutlined />}
         </ListItemIcon>
-        <ListItemText>
-          {uuid
-            ? (
-              <Link passHref href={`/guest/edit/${uuid}`}>
-                {fullName}
-              </Link>
-            )
-            : (
-              <Link passHref href={`/guest/details/${id}`}>
-                {fullName}
-              </Link>
-            )}
-        </ListItemText>
+        <Tooltip
+          title={problem ? problem.full_name : null}
+          placement={tipSide === 1 ? 'left' : 'right'}
+          TransitionComponent={Fade}
+        >
+          <ListItemText>
+            {uuid
+              ? (
+                <Link passHref href={`/guest/edit/${uuid}`}>
+                  {fullName}
+                </Link>
+              )
+              : (
+                <Link passHref href={`/guest/details/${id}`}>
+                  {fullName}
+                </Link>
+              )}
+          </ListItemText>
+        </Tooltip>
       </ListItem>
     </>
   );
@@ -78,9 +88,12 @@ SortedGuest.propTypes = {
   parent: PropTypes.bool.isRequired,
   seated: PropTypes.bool.isRequired,
   tableNumber: PropTypes.number,
+  problem: PropTypes.string,
+  tipSide: PropTypes.number.isRequired,
 };
 
 SortedGuest.defaultProps = {
   uuid: null,
   tableNumber: null,
+  problem: null,
 };

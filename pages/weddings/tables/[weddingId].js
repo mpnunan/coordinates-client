@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import {
@@ -14,11 +15,11 @@ import TableLayout from '../../../components/tables/TableLayout';
 export default function WeddingTables() {
   const [participants, setParticipants] = useState([]);
   const [selected, setSelected] = useState([]);
-  const [tables, setTables] = useState([]);
-  const [unseated, setUnseated] = useState([]);
+  const [tables, setTables] = useState({});
+  const [unseated, setUnseated] = useState({});
+  const { user } = useAuth();
   const router = useRouter();
   const { weddingId } = router.query;
-  const { user } = useAuth();
 
   const handleChecked = (e) => {
     const { value, checked } = e.target;
@@ -32,35 +33,50 @@ export default function WeddingTables() {
     console.warn(selected);
   };
 
-  const reRender = () => {
-    getReceptionTables(user.uid, weddingId.then((data) => setTables(data.reception_tables)));
-    getUnseatedGuests(user.uid, weddingId).then((data) => setUnseated(data.guests));
+  const guestLocations = () => {
+    getReceptionTables(user.uid, weddingId)
+      .then(setTables)
+      .then(() => {
+        getUnseatedGuests(user.uid, weddingId).then(setUnseated);
+      });
   };
+  // const addSelected = async (tableUuid) => {
+  //   selected.forEach((guestUuid) => {
+  //     addTableGuest(tableUuid, { guest: guestUuid });
+  //   });
+  //   setSelected([]);
+  //   guestLocations();
+  // };
 
-  useEffect(() => {
-    getReceptionTables(user.uid, weddingId).then((data) => setTables(data.reception_tables));
-  }, [user.uid, weddingId]);
-
-  useEffect(() => {
-    getUnseatedGuests(user.uid, weddingId).then((data) => setUnseated(data.guests));
-  }, [user.uid, weddingId]);
-
-  useEffect(() => {
-    getParticipants(user.uid, weddingId).then((data) => {
+  const participantArray = (uid, id) => {
+    getParticipants(uid, id).then((data) => {
       const idArray = [];
       data.forEach((participant) => {
         idArray.push(participant.id);
       });
       setParticipants(idArray);
     });
+  };
+
+  useEffect(() => {
+    participantArray(user.uid, weddingId);
+  }, [user.uid, weddingId]);
+
+  useEffect(() => {
+    getReceptionTables(user.uid, weddingId).then(setTables);
+  }, [user.uid, weddingId]);
+
+  useEffect(() => {
+    getUnseatedGuests(user.uid, weddingId).then(setUnseated);
   }, [user.uid, weddingId]);
 
   return (
     <Paper elevation={24}>
       <Box className="unseatedGuests" component="aside">
-        {unseated.map((guest) => (
+        {unseated.guests?.map((guest) => (
           <UnseatedGuest
-            key={guest.id}
+            key={`unseated-${guest.id}`}
+            className={`layout-guest-${participants.indexOf(guest.participant.id)}`}
             fullName={guest.full_name}
             uuid={guest.uuid}
             party={guest.party}
@@ -68,22 +84,23 @@ export default function WeddingTables() {
             family={guest.family}
             parent={guest.parent}
             partner={guest.partner}
-            side={participants.indexOf(guest.participant.id)}
             onChecked={handleChecked}
           />
         ))}
       </Box>
       <Box className="tableLayout" component="div">
-        {tables.map((table) => (
-          <TableLayout
-            key={table.id}
-            uuid={table.uuid}
-            number={table.number}
-            capacity={table.capacity}
-            full={table.full}
-            guests={table.guests}
-            onUpdateTable={reRender}
-          />
+        {tables.reception_tables?.map((table) => (
+          <>
+            <TableLayout
+              key={`seated-${table.id}`}
+              uuid={table.uuid}
+              number={table.number}
+              capacity={table.capacity}
+              full={table.full}
+              guests={table.guests}
+              onUpdateTable={guestLocations}
+            />
+          </>
         ))}
       </Box>
     </Paper>

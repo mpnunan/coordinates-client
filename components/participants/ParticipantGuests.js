@@ -27,6 +27,7 @@ export default function ParticipantGuests({
         party={guestList.party}
         couples={guestList.couples}
         problems={guestList.problems}
+        tipSide={index}
       />
     </Box>
   );
