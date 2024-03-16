@@ -93,6 +93,8 @@ export default function SortedGuestList({
                 parent={guest.family}
                 seated={guest.seated}
                 tableNumber={guest.table_number}
+                partner={guest.partner?.full_name}
+                tipSide={tipSide}
               />
             ))}
           </List>
@@ -112,7 +114,7 @@ export default function SortedGuestList({
                 parent={guest.family}
                 seated={guest.seated}
                 tableNumber={guest.table_number}
-                problem={guest.problem}
+                problem={guest.problem?.full_name}
                 tipSide={tipSide}
               />
             ))}
@@ -129,7 +131,7 @@ SortedGuestList.propTypes = {
   party: PropTypes.arrayOf(PropTypes.shape()),
   couples: PropTypes.arrayOf(PropTypes.shape()),
   problems: PropTypes.arrayOf(PropTypes.shape()),
-  tipSide: PropTypes.number.isRequired,
+  tipSide: PropTypes.number,
 };
 
 SortedGuestList.defaultProps = {
@@ -138,4 +140,5 @@ SortedGuestList.defaultProps = {
   party: [],
   couples: [],
   problems: [],
+  tipSide: 0,
 };

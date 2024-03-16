@@ -11,11 +11,16 @@
             text-decoration: underline
             width: 100%
     &-list.MuiList-root
-      width: 100%
+      width: fit-content
+      margin-inline-start: 0
+      margin-inline-end: auto
       li.MuiListItem-root
             padding: 4px 0px
+            width: fit-content
             .MuiListItemText-root
                 padding: 4px 8px
+                .MuiTypography-root
+                    width: fit-content
       .MuiListItemIcon-root
           min-width: 0px
     .sideList
@@ -35,6 +40,7 @@
         width: 50%
         .sortedList 
             width: 100%
+
     &-0 .sideGuestList, &-0 .insideGuestList
         align-items: flex-start
     &-1 
@@ -48,11 +54,21 @@
         h3.MuiTypography-h3.listTitle
             text-align: right
         .sideGuestList, .insideGuestList
-           align-items: flex-end
+            align-items: flex-end
+            ul.MuiList-root.guestList-list
+                margin-right: 0
+                margin-left: auto
         li.MuiListItem-root
             flex-direction: row-reverse
             text-align: right
             width: 100%
+            margin-right: 0
+            margin-left: auto
+            .MuiListItemText-root
+                .MuiTypography-root
+                    width: fit-content
+                    margin-right: 0
+                    margin-left: auto
 @media (max-width: $breakpoint-md)
     .guestList
         flex-direction: column

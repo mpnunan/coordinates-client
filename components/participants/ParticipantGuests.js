@@ -38,5 +38,9 @@ ParticipantGuests.propTypes = {
   weddingId: PropTypes.string.isRequired,
   participantId: PropTypes.number.isRequired,
   fullName: PropTypes.string.isRequired,
-  index: PropTypes.number.isRequired,
+  index: PropTypes.number,
+};
+
+ParticipantGuests.defaultProps = {
+  index: 0,
 };

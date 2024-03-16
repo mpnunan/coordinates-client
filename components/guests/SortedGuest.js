@@ -21,6 +21,7 @@ export default function SortedGuest({
   seated,
   tableNumber,
   problem,
+  partner,
   tipSide,
 }) {
   const [classList, setClassList] = useState('');
@@ -55,7 +56,8 @@ export default function SortedGuest({
           {seated ? <EventSeat /> : <EventSeatOutlined />}
         </ListItemIcon>
         <Tooltip
-          title={problem ? problem.full_name : null}
+          // title={problem ? problem.full_name : null}
+          title={problem || partner}
           placement={tipSide === 1 ? 'left' : 'right'}
           TransitionComponent={Fade}
         >
@@ -89,11 +91,14 @@ SortedGuest.propTypes = {
   seated: PropTypes.bool.isRequired,
   tableNumber: PropTypes.number,
   problem: PropTypes.string,
-  tipSide: PropTypes.number.isRequired,
+  partner: PropTypes.string,
+  tipSide: PropTypes.number,
 };
 
 SortedGuest.defaultProps = {
   uuid: null,
   tableNumber: null,
   problem: null,
+  partner: null,
+  tipSide: 0,
 };
