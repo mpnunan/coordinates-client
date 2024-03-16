@@ -1,54 +1,37 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import {
-  Button,
-  ButtonGroup,
-  List,
-  Paper,
-  Typography,
-} from '@mui/material';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { getGuests } from '../../../utils/data/guestData';
-import GuestList from '../../../components/guests/GuestList';
+import { useRouter } from 'next/router';
+import { Box, Paper, Typography } from '@mui/material';
+import { useAuth } from '../../../utils/context/authContext';
+import getParticipants from '../../../utils/data/participantData';
+import ParticipantGuests from '../../../components/participants/ParticipantGuests';
 
-export default function WeddingGuests() {
-  const [guests, setGuests] = useState([]);
+export default function WeddingGuestList() {
+  const [participants, setParticipants] = useState([]);
+  const { user } = useAuth();
   const router = useRouter();
   const { weddingId } = router.query;
 
-  const allGuests = () => {
-    getGuests(weddingId).then(setGuests);
-  };
-
   useEffect(() => {
-    allGuests();
-  }, []);
+    getParticipants(user.uid, weddingId).then(setParticipants);
+  }, [user.uid, weddingId]);
 
   return (
     <Paper elevation={24}>
       <Typography variant="h1">Guest List</Typography>
-      <ButtonGroup>
-        <Link passHref href="/weddings">
-          <Button>Back to Weddings</Button>
-        </Link>
-        <Link passHref href={`/guest/new/${weddingId}`}>
-          <Button>Add a Guest</Button>
-        </Link>
-        <Link passHref href={`/weddings/tables/${weddingId}`}>
-          <Button>Manage Tables</Button>
-        </Link>
-      </ButtonGroup>
-      <List>
-        {guests?.map((guest) => (
-          <GuestList
-            key={guest.id}
-            id={guest.id}
-            fullName={guest.full_name}
-            seated={guest.seated}
-          />
-        ))}
-      </List>
+      <Box className="guestListSection">
+        <Box className="guestList">
+          {participants.map((participant) => (
+            <ParticipantGuests
+              key={`listDisplay-${participant.id}`}
+              uid={user.uid}
+              weddingId={weddingId}
+              participantId={participant.id}
+              fullName={participant.full_name}
+              index={participants.indexOf(participant)}
+            />
+          ))}
+        </Box>
+      </Box>
     </Paper>
   );
 }

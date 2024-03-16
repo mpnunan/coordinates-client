@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/globals.css';
+import '../styles/styles.sass';
 import { AuthProvider } from '../utils/context/authContext';
 import ViewDirectorBasedOnUserAuthStatus from '../utils/ViewDirector';
 

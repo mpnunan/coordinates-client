@@ -1,0 +1,75 @@
+@import "./globalVariables"
+
+.guestList
+    display: flex
+    justify-content: space-between
+    &-participant.MuiBox-root
+        margin: min(4px)
+        min-width: 40%
+        h3.listTitle
+            font-size: 20px
+            text-decoration: underline
+            width: 100%
+    &-list.MuiList-root
+      width: fit-content
+      margin-inline-start: 0
+      margin-inline-end: auto
+      li.MuiListItem-root
+            padding: 4px 0px
+            width: fit-content
+            .MuiListItemText-root
+                padding: 4px 8px
+                .MuiTypography-root
+                    width: fit-content
+      .MuiListItemIcon-root
+          min-width: 0px
+    .sideList
+        display: flex
+        flex-direction: row
+    .sideGuestList
+        display: flex
+        flex-direction: column
+        justify-content: flex-start
+        margin: 4px
+        width: 50%
+    .insideGuestList
+        display: flex
+        flex-direction: column
+        justify-content: flex-start
+        margin: 4px
+        width: 50%
+        .sortedList 
+            width: 100%
+
+    &-0 .sideGuestList, &-0 .insideGuestList
+        align-items: flex-start
+    &-1 
+        h2.MuiTypography-h2
+            text-align: right
+            margin-right: 0
+            margin-left: auto
+        .sideList
+            flex-direction: row-reverse
+            justify-content: right
+        h3.MuiTypography-h3.listTitle
+            text-align: right
+        .sideGuestList, .insideGuestList
+            align-items: flex-end
+            ul.MuiList-root.guestList-list
+                margin-right: 0
+                margin-left: auto
+        li.MuiListItem-root
+            flex-direction: row-reverse
+            text-align: right
+            width: 100%
+            margin-right: 0
+            margin-left: auto
+            .MuiListItemText-root
+                .MuiTypography-root
+                    width: fit-content
+                    margin-right: 0
+                    margin-left: auto
+@media (max-width: $breakpoint-md)
+    .guestList
+        flex-direction: column
+        justify-content: flex-start

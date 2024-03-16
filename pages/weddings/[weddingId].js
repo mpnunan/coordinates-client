@@ -12,7 +12,7 @@ export default function DeleteWedding() {
 
   const onDelete = () => {
     if (window.confirm(`Delete the ${wedding.name} wedding?`)) {
-      deleteWedding(user.uid, weddingId).then(() => router.push('/weddings'));
+      deleteWedding(user.uid, wedding.uuid).then(() => router.push('/weddings'));
     }
   };
 
