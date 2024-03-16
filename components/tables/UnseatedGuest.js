@@ -25,7 +25,7 @@ export default function UnseatedGuest({
     const classes = Object.entries(identObj);
     classes.forEach((identifier) => {
       if (identifier[1] !== false) {
-        classString += identifier[0];
+        classString += ` ${identifier[0]}`;
       }
     });
     return classString;
@@ -53,6 +53,14 @@ export default function UnseatedGuest({
           onChange={onChecked}
           inputProps={{
             'aria-label': `Select ${fullName} to add to table or group`,
+          }}
+          sx={{
+            '@media (max-width: 600px)': {
+              padding: '4px',
+              '& .MuiSvgIcon-root': {
+                fontSize: 18,
+              },
+            },
           }}
         />
       </Box>

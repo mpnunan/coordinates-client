@@ -1,0 +1,130 @@
+@import "./globalVariables"
+
+.tableLayout
+    display: flex
+    justify-content: space-between
+    align-items: flex-start
+    &.MuiBox-root .MuiTypography-root.MuiTypography-h2
+        font-size: 24px
+        width: 100%
+        text-align: center
+    .unseatedGuests
+        display: block
+        width: 180px
+        .layout-unseated-guest
+            display: flex
+            justify-content: space-between
+            align-items: center
+            height: fit-content
+            width: 180px
+            .MuiTypography-root
+                padding: 0 4px
+                font-size: 16px
+    .tableSection
+        display: flex
+        justify-content: space-evenly
+        flex-wrap: wrap
+        .layout-table
+            width: 40%
+            min-width: 360px
+            margin: 16px
+            .tableHead-sub
+                width: 100%
+                text-align: center
+                &-available
+                    width: 100%
+                    display: flex
+                    justify-content: space-between
+                    .MuiTypography-root.MuiTypography-h3
+                        font-size: 20px
+            .seatedGuests
+                display: grid
+                grid-template-columns: 45% 45%
+                gap: 10%
+                padding: 4px
+                .layout-guest
+                    display: flex
+                    justify-content: flex-end
+                    align-items: center
+                    height: fit-content
+                    .MuiTypography-root
+                        padding: 0 4px
+                        font-size: 16px
+                    .MuiButtonBase-root
+                        padding: 2px
+                        padding-inline: 2px
+                        min-width: fit-content
+                    &:nth-child(odd)
+                        flex-direction: row-reverse
+@media (max-width: $breakpoint-sm)
+    .tableLayout
+        &.MuiBox-root .MuiTypography-root.MuiTypography-h2
+            font-size: 20px
+            width: 100%
+            text-align: center
+        .tableSection
+            .layout-table
+                min-width: 0px
+                width: 100%
+                .tableHead-sub-available
+                    text-align: right
+                    justify-content: flex-end
+                    .MuiTypography-root.MuiTypography-h3
+                        font-size: 18px
+                .seatedGuests
+                    display: flex
+                    flex-direction: column
+                    justify-content: flex-start
+                    align-items: flex-end
+                    .layout-guest
+                        margin: 4px 4px 4px auto
+                        &:nth-child(odd)
+                            flex-direction: row
+                        .MuiTypography-root
+                            font-size: 18px
+
+@media (max-width: $breakpoint-xs)
+    .tableLayout
+        flex-direction: column
+        &.MuiBox-root .MuiTypography-root.MuiTypography-h2
+            font-size: 20px
+            width: 100%
+            text-align: center
+        .unseatedGuests
+            display: flex
+            flex-wrap: wrap
+            justify-content: space-between
+            width: 100%
+            .layout-unseated-guest
+                display: flex
+                justify-content: space-between
+                align-items: center
+                height: fit-content
+                width: 48%
+                margin-bottom: 8px
+                &:nth-child(even)
+                    flex-direction: row-reverse
+@media (max-width: $breakpoint-xxs)
+    .tableLayout
+        .unseatedGuests
+            flex-direction: column
+            align-items: flex-start
+            justify-content: flex-start
+            width: 100%
+            .layout-unseated-guest
+                width: 100%
+                &:nth-child(even)
+                    flex-direction: row
+        .tableSection
+            .layout-table
+                margin: 16px 0
+                .tableHead-sub-available
+                    margin-bottom: 16px
+                    .MuiTypography-root.MuiTypography-h3
+                        width: 100%
+                        font-size: 16px
+                        display: inline-block
+                .seatedGuests
+                    .layout-guest
+                        .MuiTypography-root
+                            font-size: 16px
