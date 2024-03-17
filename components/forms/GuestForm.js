@@ -11,12 +11,14 @@ import {
   ToggleButtonGroup,
 } from '@mui/material';
 import { createGuest, updateGuest } from '../../utils/data/guestData';
+import { useAuth } from '../../utils/context/authContext';
+import getParticipants from '../../utils/data/participantData';
 
 const initialState = {
   firstName: '',
   lastName: '',
-  participant: 0,
   family: false,
+  participant: '',
   parent: false,
   party: false,
   primary: false,
@@ -32,10 +34,15 @@ export default function GuestForm({
   parent,
   party,
   primary,
-  participantArray,
 }) {
   const [guest, setGuest] = useState(initialState);
+  const [participants, setParticipants] = useState([]);
   const router = useRouter();
+  const { user } = useAuth();
+
+  useEffect(() => {
+    getParticipants(user.uid, wedding).then(setParticipants);
+  }, [user.uid, wedding]);
 
   useEffect(() => {
     if (uuid.length > 0) {
@@ -94,16 +101,17 @@ export default function GuestForm({
         name="participant"
         value={guest.participant}
         exclusive
+        required
         onChange={handleSelect}
         aria-label="Select which side of the wedding for this guest"
       >
-        {participantArray.map((weddingParticipant) => (
+        {participants.map((person) => (
           <ToggleButton
-            key={`guestSide-toggle-${weddingParticipant.id}`}
-            name={weddingParticipant.id}
-            value={weddingParticipant.id}
+            key={`guestSide-toggle-${person.uuid}`}
+            name={person.uuid}
+            value={person.uuid}
           >
-            {weddingParticipant.full_name}
+            {person.full_name}
           </ToggleButton>
         ))}
       </ToggleButtonGroup>
@@ -175,15 +183,11 @@ GuestForm.propTypes = {
   firstName: PropTypes.string,
   lastName: PropTypes.string,
   wedding: PropTypes.number.isRequired,
-  participant: PropTypes.number,
+  participant: PropTypes.string,
   family: PropTypes.bool,
   parent: PropTypes.bool,
   party: PropTypes.bool,
   primary: PropTypes.bool,
-  participantArray: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number,
-    full_name: PropTypes.string,
-  })).isRequired,
 };
 
 GuestForm.defaultProps = {
