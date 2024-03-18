@@ -9,7 +9,7 @@ import {
 import { deleteGuest, getSingleGuest } from '../../../utils/data/guestData';
 import GuestForm from '../../../components/forms/GuestForm';
 
-export default function DeleteTable() {
+export default function EditGuest() {
   const router = useRouter();
   const { guestUuid } = router.query;
   const [guest, setGuest] = useState({});

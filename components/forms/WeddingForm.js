@@ -1,31 +1,53 @@
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import { Button, FormControl, TextField } from '@mui/material';
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  FormControl,
+  TextField,
+} from '@mui/material';
 import { createWeddding, updateWedding } from '../../utils/data/weddingData';
 
 const initialState = {
   venue: '',
-  name: '',
+  weddingName: '',
 };
 
 export default function WeddingForm({
-  id,
+  uuid,
   venue,
   weddingName,
   uid,
+  onUpdate,
 }) {
   const router = useRouter();
   const [wedding, setWedding] = useState(initialState);
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const weddingCreated = () => {
+    onUpdate();
+    handleClose();
+  };
 
   useEffect(() => {
-    if (id > 0) {
+    if (uuid.length > 0) {
       setWedding({
         venue,
-        name: weddingName,
+        weddingName,
       });
     }
-  }, [id, venue, weddingName]);
+  }, [uuid, venue, weddingName]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -37,53 +59,72 @@ export default function WeddingForm({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (id > 0) {
-      updateWedding(uid, wedding, id).then(() => router.push(`/weddings/guests/${id}`));
+    if (uuid.length > 0) {
+      updateWedding(uid, uuid, wedding).then(() => router.push('/weddings'));
     } else {
-      createWeddding(uid, wedding).then((response) => router.push(`/weddings/guests/${response.id}`));
+      createWeddding(uid, wedding).then(() => weddingCreated());
     }
   };
 
   return (
-    <FormControl
-      id="weddingForm"
-      component="form"
-      onSubmit={handleSubmit}
-    >
-      <TextField
-        label="Wedding Venue"
-        name="venue"
-        value={wedding.venue}
-        required
-        onChange={handleChange}
-      />
-      <TextField
-        label="Wedding Name"
-        name="name"
-        value={wedding.name}
-        required
-        onChange={handleChange}
-      />
+    <>
       <Button
-        type="submit"
-        variant="outlined"
-        color="success"
+        variant="text"
+        onClick={handleOpen}
       >
-        Submit
+        {uuid.length ? 'Alter Wedding Details' : 'Create New Wedding'}
       </Button>
-    </FormControl>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+      >
+        <DialogTitle>
+          {wedding.weddingName}
+        </DialogTitle>
+        <DialogContent>
+          <FormControl
+            id="weddingForm"
+            component="form"
+            onSubmit={handleSubmit}
+          >
+            <TextField
+              label="Wedding Venue"
+              name="venue"
+              value={wedding.venue}
+              required
+              onChange={handleChange}
+            />
+            <TextField
+              label="Wedding Name"
+              name="weddingName"
+              value={wedding.weddingName}
+              required
+              onChange={handleChange}
+            />
+            <Button
+              type="submit"
+              variant="text"
+            >
+              Submit
+            </Button>
+          </FormControl>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }
 
 WeddingForm.propTypes = {
-  id: PropTypes.number,
+  uuid: PropTypes.string,
   venue: PropTypes.string,
   weddingName: PropTypes.string,
   uid: PropTypes.string.isRequired,
+  onUpdate: PropTypes.func,
 };
 
 WeddingForm.defaultProps = {
-  id: 0,
+  uuid: '',
   venue: initialState.venue,
   weddingName: initialState.name,
+  onUpdate: null,
 };
