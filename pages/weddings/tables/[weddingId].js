@@ -3,9 +3,12 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import {
   Box,
+  Button,
+  ButtonGroup,
   Paper,
   Typography,
 } from '@mui/material';
+import Link from 'next/link';
 import { useAuth } from '../../../utils/context/authContext';
 import { addTableGuest, getReceptionTables } from '../../../utils/data/receptionTableData';
 import { getUnseatedGuests } from '../../../utils/data/guestData';
@@ -87,10 +90,15 @@ export default function WeddingTables() {
 
   return (
     <Paper elevation={24}>
-      <TableForm
-        wedding={wedding}
-        onUpdate={updateFunc}
-      />
+      <ButtonGroup>
+        <TableForm
+          wedding={wedding}
+          onUpdate={updateFunc}
+        />
+        <Link passHref href="/weddings">
+          <Button variant="text">Back to Weddings</Button>
+        </Link>
+      </ButtonGroup>
       <Box className="tableLayout">
         <Box className="unseatedGuests" component="aside">
           <Typography variant="h2">Not Seated</Typography>

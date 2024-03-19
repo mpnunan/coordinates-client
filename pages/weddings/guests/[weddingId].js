@@ -1,6 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { Box, Paper, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Paper,
+  Typography,
+} from '@mui/material';
+import Link from 'next/link';
 import { useAuth } from '../../../utils/context/authContext';
 import getParticipants from '../../../utils/data/participantData';
 import ParticipantGuests from '../../../components/participants/ParticipantGuests';
@@ -27,10 +34,15 @@ export default function WeddingGuestList() {
   return (
     <Paper elevation={24}>
       <Typography variant="h1">Guest List</Typography>
-      <GuestForm
-        wedding={wedding}
-        onUpdate={updateFunc}
-      />
+      <ButtonGroup>
+        <GuestForm
+          wedding={wedding}
+          onUpdate={updateFunc}
+        />
+        <Link passHref href="/weddings">
+          <Button variant="text">Back to Weddings</Button>
+        </Link>
+      </ButtonGroup>
       <Box className="guestListSection">
         <Box className="guestList">
           {participants.map((participant) => (

@@ -6,6 +6,7 @@ import {
   Paper,
   Typography,
 } from '@mui/material';
+import Link from 'next/link';
 import { deleteGuest, getSingleGuest } from '../../../utils/data/guestData';
 import GuestForm from '../../../components/forms/GuestForm';
 
@@ -41,6 +42,9 @@ export default function EditGuest() {
           primary={guest.primary}
         />
         <Button variant="text" onClick={onDelete}>Remove Guest</Button>
+        <Link passHref href={`/weddings/guests/${guest.wedding_id}`}>
+          <Button variant="text">Back to Guest List</Button>
+        </Link>
       </ButtonGroup>
     </Paper>
   );
