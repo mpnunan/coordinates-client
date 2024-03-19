@@ -7,6 +7,7 @@ import {
   Typography,
 } from '@mui/material';
 import { GroupAdd } from '@mui/icons-material';
+import Link from 'next/link';
 import LayoutGuest from './LayoutGuest';
 
 export default function TableLayout({
@@ -29,7 +30,11 @@ export default function TableLayout({
   return (
     <Box className={`layout-table full-${full}`} component="div">
       <Box className="tableHead">
-        <Typography variant="h2">{`Table ${number}`}</Typography>
+        <Link passHref href={`/table/edit/${uuid}`}>
+          <Button variant="text" sx={{ width: '100%' }}>
+            <Typography variant="h2">{`Table ${number}`}</Typography>
+          </Button>
+        </Link>
         <Box className="tableHead-sub">
           {full
             ? 'None Available'

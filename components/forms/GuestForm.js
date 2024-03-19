@@ -109,7 +109,7 @@ export default function GuestForm({
     if (uuid.length > 0) {
       updateGuest(uuid, guest).then(() => router.push(`/weddings/guests/${wedding}`));
     } else {
-      createGuest({ ...guest, wedding }).then(() => guestCreated());
+      createGuest(user.uid, { ...guest, wedding }).then(() => guestCreated());
     }
   };
 

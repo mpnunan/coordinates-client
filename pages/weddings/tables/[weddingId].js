@@ -12,6 +12,7 @@ import { getUnseatedGuests } from '../../../utils/data/guestData';
 import UnseatedGuest from '../../../components/tables/UnseatedGuest';
 import getParticipants from '../../../utils/data/participantData';
 import TableLayout from '../../../components/tables/TableLayout';
+import TableForm from '../../../components/forms/TableForm';
 
 export default function WeddingTables() {
   const [participants, setParticipants] = useState([]);
@@ -21,6 +22,7 @@ export default function WeddingTables() {
   const { user } = useAuth();
   const router = useRouter();
   const { weddingId } = router.query;
+  const wedding = Number(weddingId);
 
   const handleChecked = (e) => {
     const { value, checked } = e.target;
@@ -67,6 +69,10 @@ export default function WeddingTables() {
     });
   };
 
+  const updateFunc = () => {
+    getReceptionTables(user.uid, weddingId).then(setTables);
+  };
+
   useEffect(() => {
     participantArray(user.uid, weddingId);
   }, [user.uid, weddingId]);
@@ -81,6 +87,10 @@ export default function WeddingTables() {
 
   return (
     <Paper elevation={24}>
+      <TableForm
+        wedding={wedding}
+        onUpdate={updateFunc}
+      />
       <Box className="tableLayout">
         <Box className="unseatedGuests" component="aside">
           <Typography variant="h2">Not Seated</Typography>

@@ -6,12 +6,18 @@ const getReceptionTables = async (uid, weddingId) => {
   return receptionTables.data;
 };
 
-const getSingleReceptionTable = async (tableId) => {
+const getSingleReceptionTable = async (tableUuid) => {
+  const receptionTable = await coordinates.get(`/reception_tables/${tableUuid}`);
+  return receptionTable.data;
+};
+
+const getSingleReadOnlyReceptionTable = async (tableId) => {
   const receptionTable = await coordinates.get(`/reception_tables/${tableId}/read_only`);
   return receptionTable.data;
 };
 
-const createReceptionTable = async (payload) => {
+const createReceptionTable = async (uid, payload) => {
+  coordinates.defaults.headers.common.Authorization = uid;
   const receptionTable = await coordinates.post('/reception_tables', payload);
   return receptionTable.data;
 };
@@ -39,6 +45,7 @@ const removeTableGuest = async (uuid, payload) => {
 export {
   getReceptionTables,
   getSingleReceptionTable,
+  getSingleReadOnlyReceptionTable,
   createReceptionTable,
   updateReceptionTable,
   deleteReceptionTable,

@@ -28,7 +28,8 @@ const getSingleReadOnlyGuest = async (guestId) => {
   return guest.data;
 };
 
-const createGuest = async (payload) => {
+const createGuest = async (uid, payload) => {
+  coordinates.defaults.headers.common.Authorization = uid;
   const guest = await coordinates.post('/guests', payload);
   return guest.data;
 };
