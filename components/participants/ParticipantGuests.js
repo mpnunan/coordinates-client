@@ -10,12 +10,15 @@ export default function ParticipantGuests({
   participantId,
   fullName,
   index,
+  updateToggle,
 }) {
   const [guestList, setGuestList] = useState({});
 
   useEffect(() => {
-    getGuestList(uid, weddingId, participantId).then(setGuestList);
-  }, [uid, weddingId, participantId]);
+    getGuestList(uid, weddingId, participantId)
+      .then(setGuestList)
+      .then(() => updateToggle);
+  }, [updateToggle, uid, weddingId, participantId]);
 
   return (
     <Box className={`guestList-participant guestList-${index}`}>
@@ -39,6 +42,7 @@ ParticipantGuests.propTypes = {
   participantId: PropTypes.number.isRequired,
   fullName: PropTypes.string.isRequired,
   index: PropTypes.number,
+  updateToggle: PropTypes.number.isRequired,
 };
 
 ParticipantGuests.defaultProps = {

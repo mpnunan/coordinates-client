@@ -3,14 +3,19 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import {
   Box,
+  Button,
+  ButtonGroup,
   Paper,
+  Typography,
 } from '@mui/material';
+import Link from 'next/link';
 import { useAuth } from '../../../utils/context/authContext';
-import { getReceptionTables } from '../../../utils/data/receptionTableData';
+import { addTableGuest, getReceptionTables } from '../../../utils/data/receptionTableData';
 import { getUnseatedGuests } from '../../../utils/data/guestData';
 import UnseatedGuest from '../../../components/tables/UnseatedGuest';
 import getParticipants from '../../../utils/data/participantData';
 import TableLayout from '../../../components/tables/TableLayout';
+import TableForm from '../../../components/forms/TableForm';
 
 export default function WeddingTables() {
   const [participants, setParticipants] = useState([]);
@@ -20,6 +25,7 @@ export default function WeddingTables() {
   const { user } = useAuth();
   const router = useRouter();
   const { weddingId } = router.query;
+  const wedding = Number(weddingId);
 
   const handleChecked = (e) => {
     const { value, checked } = e.target;
@@ -30,7 +36,6 @@ export default function WeddingTables() {
       selectedArray.splice(selectedArray.indexOf(value), 1);
     }
     setSelected(selectedArray);
-    console.warn(selected);
   };
 
   const guestLocations = () => {
@@ -40,13 +45,22 @@ export default function WeddingTables() {
         getUnseatedGuests(user.uid, weddingId).then(setUnseated);
       });
   };
-  // const addSelected = async (tableUuid) => {
-  //   selected.forEach((guestUuid) => {
-  //     addTableGuest(tableUuid, { guest: guestUuid });
-  //   });
-  //   setSelected([]);
-  //   guestLocations();
-  // };
+  const makeAdditions = async (tableUuid) => {
+    const additions = await Promise.all([
+      selected.forEach((guestUuid) => {
+        addTableGuest(tableUuid, { guest: guestUuid });
+      }),
+    ]);
+    return additions;
+  };
+
+  const addSelected = async (tableUuid) => {
+    const readyToUpdate = await makeAdditions(tableUuid)
+      .then(() => {
+        setSelected([]);
+      });
+    return readyToUpdate;
+  };
 
   const participantArray = (uid, id) => {
     getParticipants(uid, id).then((data) => {
@@ -56,6 +70,10 @@ export default function WeddingTables() {
       });
       setParticipants(idArray);
     });
+  };
+
+  const updateFunc = () => {
+    getReceptionTables(user.uid, weddingId).then(setTables);
   };
 
   useEffect(() => {
@@ -72,36 +90,47 @@ export default function WeddingTables() {
 
   return (
     <Paper elevation={24}>
-      <Box className="unseatedGuests" component="aside">
-        {unseated.guests?.map((guest) => (
-          <UnseatedGuest
-            key={`unseated-${guest.id}`}
-            className={`layout-guest-${participants.indexOf(guest.participant.id)}`}
-            fullName={guest.full_name}
-            uuid={guest.uuid}
-            party={guest.party}
-            primary={guest.primary}
-            family={guest.family}
-            parent={guest.parent}
-            partner={guest.partner}
-            onChecked={handleChecked}
-          />
-        ))}
-      </Box>
-      <Box className="tableLayout" component="div">
-        {tables.reception_tables?.map((table) => (
-          <>
+      <ButtonGroup>
+        <TableForm
+          wedding={wedding}
+          onUpdate={updateFunc}
+        />
+        <Link passHref href="/weddings">
+          <Button variant="text">Back to Weddings</Button>
+        </Link>
+      </ButtonGroup>
+      <Box className="tableLayout">
+        <Box className="unseatedGuests" component="aside">
+          <Typography variant="h2">Not Seated</Typography>
+          {unseated.guests?.map((guest) => (
+            <UnseatedGuest
+              key={`unseated-${guest.id}`}
+              className={`layout-guest-${participants.indexOf(guest.participant.id)}`}
+              fullName={guest.full_name}
+              uuid={guest.uuid}
+              party={guest.party}
+              primary={guest.primary}
+              family={guest.family}
+              parent={guest.parent}
+              partner={guest.partner}
+              onChecked={handleChecked}
+            />
+          ))}
+        </Box>
+        <Box className="tableSection" component="div">
+          {tables.reception_tables?.map((table) => (
             <TableLayout
-              key={`seated-${table.id}`}
+              key={`layout-table-${table.id}`}
               uuid={table.uuid}
               number={table.number}
               capacity={table.capacity}
               full={table.full}
               guests={table.guests}
               onUpdateTable={guestLocations}
+              selectedFunc={addSelected}
             />
-          </>
-        ))}
+          ))}
+        </Box>
       </Box>
     </Paper>
   );

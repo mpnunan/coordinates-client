@@ -1,32 +1,54 @@
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import { Button, FormControl, TextField } from '@mui/material';
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  FormControl,
+  TextField,
+} from '@mui/material';
 import { createReceptionTable, updateReceptionTable } from '../../utils/data/receptionTableData';
+import { useAuth } from '../../utils/context/authContext';
 
 const initialState = {
-  number: 0,
   capacity: 0,
+  wedding: 0,
 };
 
 export default function TableForm({
-  id,
+  uuid,
   wedding,
-  number,
   capacity,
+  onUpdate,
 }) {
   const [table, setTable] = useState(initialState);
   const router = useRouter();
+  const [open, setOpen] = useState(false);
+  const { user } = useAuth();
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const tableCreated = () => {
+    onUpdate();
+    handleClose();
+  };
 
   useEffect(() => {
-    if (id > 0) {
+    if (uuid.length > 0) {
       setTable({
         wedding,
-        number,
         capacity,
       });
     }
-  }, [id, wedding, number, capacity]);
+  }, [uuid, wedding, capacity]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,54 +60,64 @@ export default function TableForm({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (id > 0) {
-      updateReceptionTable(id, table).then(() => router.push(`/weddings/tables/${wedding}`));
+    if (uuid.length > 0) {
+      updateReceptionTable(uuid, table).then(() => router.push(`/weddings/tables/${wedding}`));
     } else {
-      createReceptionTable({ ...table, wedding }).then(() => router.push(`/weddings/tables/${wedding}`));
+      createReceptionTable(user.uid, { ...table, wedding }).then(() => tableCreated());
     }
   };
 
   return (
-    <FormControl
-      id="tableForm"
-      component="form"
-      onSubmit={handleSubmit}
-    >
-      <TextField
-        label="Table Number"
-        name="number"
-        value={table.number}
-        required
-        onChange={handleChange}
-      />
-      <TextField
-        label="Table Capacity"
-        name="capacity"
-        value={table.capacity}
-        required
-        onChange={handleChange}
-      />
+    <>
       <Button
-        type="submit"
-        variant="outlined"
-        color="success"
+        variant="text"
+        onClick={handleOpen}
       >
-        Submit
+        {uuid.length > 0 ? 'Alter Table Details' : 'Create New Table'}
       </Button>
-    </FormControl>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+      >
+        <DialogTitle>
+          {table.number ? `Table ${table.number}` : 'Table Creation'}
+        </DialogTitle>
+        <DialogContent>
+          <FormControl
+            id="tableForm"
+            component="form"
+            onSubmit={handleSubmit}
+          >
+            <TextField
+              label="Table Capacity"
+              name="capacity"
+              value={table.capacity}
+              required
+              onChange={handleChange}
+            />
+            <Button
+              type="submit"
+              variant="text"
+            >
+              Submit
+            </Button>
+          </FormControl>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }
 
 TableForm.propTypes = {
-  id: PropTypes.number,
+  uuid: PropTypes.string,
   wedding: PropTypes.number,
-  number: PropTypes.number,
   capacity: PropTypes.number,
+  onUpdate: PropTypes.func,
 };
 
 TableForm.defaultProps = {
-  id: 0,
-  number: initialState.number,
+  uuid: '',
   capacity: initialState.capacity,
   wedding: 0,
+  onUpdate: null,
 };

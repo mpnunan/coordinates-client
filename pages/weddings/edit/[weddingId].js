@@ -1,15 +1,26 @@
-import { Paper, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import WeddingForm from '../../../components/forms/WeddingForm';
-import { getSingleWedding } from '../../../utils/data/weddingData';
+import {
+  Button,
+  ButtonGroup,
+  Paper,
+  Typography,
+} from '@mui/material';
 import { useAuth } from '../../../utils/context/authContext';
+import { deleteWedding, getSingleWedding } from '../../../utils/data/weddingData';
+import WeddingForm from '../../../components/forms/WeddingForm';
 
-export default function WeddingEdits() {
+export default function EditWedding() {
   const router = useRouter();
   const { weddingId } = router.query;
-  const [wedding, setWedding] = useState({});
   const { user } = useAuth();
+  const [wedding, setWedding] = useState({});
+
+  const onDelete = () => {
+    if (window.confirm(`Delete the ${wedding.name} wedding?`)) {
+      deleteWedding(user.uid, wedding.uuid).then(() => router.push('/weddings'));
+    }
+  };
 
   useEffect(() => {
     getSingleWedding(user.uid, weddingId).then(setWedding);
@@ -17,14 +28,17 @@ export default function WeddingEdits() {
 
   return (
     <Paper elevation={24}>
-      <Typography variant="h1">Edit Wedding</Typography>
-      <WeddingForm
-        key={`update-${wedding.id}`}
-        id={wedding.id}
-        venue={wedding.venue}
-        weddingName={wedding.name}
-        uid={user.uid}
-      />
+      <Typography variant="h1">{wedding.name}</Typography>
+      <Typography variant="body">{wedding.venue}</Typography>
+      <ButtonGroup>
+        <WeddingForm
+          uuid={wedding.uuid}
+          venue={wedding.venue}
+          weddingName={wedding.name}
+          uid={user.uid}
+        />
+        <Button variant="text" onClick={onDelete}>Cancel Wedding</Button>
+      </ButtonGroup>
     </Paper>
   );
 }

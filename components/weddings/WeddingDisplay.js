@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 
 export default function WeddingDisplay({
   id,
+  uuid,
   name,
   venue,
 }) {
@@ -31,9 +32,12 @@ export default function WeddingDisplay({
           <Link passHref href={`/weddings/${id}`}>
             <Button>Wedding Details</Button>
           </Link>
-          <Link passHref href={`/weddings/edit/${id}`}>
-            <Button>Alter Wedding</Button>
-          </Link>
+          {uuid ? (
+            <Link passHref href={`/weddings/edit/${id}`}>
+              <Button>Alter Wedding</Button>
+            </Link>
+          )
+            : null}
         </ButtonGroup>
       </Paper>
     </div>
@@ -42,6 +46,11 @@ export default function WeddingDisplay({
 
 WeddingDisplay.propTypes = {
   id: PropTypes.number.isRequired,
+  uuid: PropTypes.string,
   name: PropTypes.string.isRequired,
   venue: PropTypes.string.isRequired,
+};
+
+WeddingDisplay.defaultProps = {
+  uuid: '',
 };

@@ -31,7 +31,7 @@ export default function SortedGuest({
     const classes = Object.entries(identObj);
     classes.forEach((identifier) => {
       if (identifier[1] !== false) {
-        classString += identifier[0];
+        classString += ` ${identifier[0]}`;
       }
     });
     return classString;
