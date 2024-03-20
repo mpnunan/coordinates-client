@@ -22,9 +22,16 @@ export default function WeddingPlanners() {
   return (
     <Paper elevation={24}>
       <Typography variant="h1">Wedding Planners</Typography>
+      <WeddingPlannerForm
+        wedding={weddingId}
+        onUpdate={updateFunc}
+      />
       <Box className="weddingPlanners">
-        {weddingPlanners.map((planner) => (
-          <Box className={planner.readOnly === true ? 'weddingPlanners-planner readOnly' : 'weddingPlanners-planner'}>
+        {weddingPlanners?.map((planner) => (
+          <Box
+            key={`planners-${planner.planner.id}`}
+            className={planner.readOnly === true ? 'weddingPlanners-planner readOnly' : 'weddingPlanners-planner'}
+          >
             <WeddingPlannerForm
               email={planner.planner?.email}
               phoneNumber={planner.planner?.phone_number}

@@ -16,12 +16,12 @@ import { addWeddingPlanner, removeWeddingPlanner, updateWeddingPlanner } from '.
 const initialState = {
   wedding: '',
   email: '',
-  phoneNumber: '',
+  phoneNumber: 0,
   readOnly: false,
 };
 
 const initialInput = {
-  input: '',
+  formInput: '',
 };
 
 export default function WeddingPlannerForm({
@@ -140,7 +140,7 @@ export default function WeddingPlannerForm({
               <TextField
                 label="Enter Phone Number or Email"
                 name="formInput"
-                value={input.input}
+                value={input.formInput}
                 required
                 onChange={handleInput}
               />

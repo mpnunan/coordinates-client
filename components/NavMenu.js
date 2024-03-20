@@ -122,7 +122,9 @@ export default function NavMenu() {
           <ListItemIcon>
             <PersonAdd fontSize="small" />
           </ListItemIcon>
-          Invite Planners
+          <Link passHref href="/weddings/planners">
+            Invite Planners
+          </Link>
         </MenuItem>
         <MenuItem onClick={logout}>
           <ListItemIcon>
