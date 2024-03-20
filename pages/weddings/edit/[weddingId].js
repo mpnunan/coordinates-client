@@ -6,6 +6,7 @@ import {
   Paper,
   Typography,
 } from '@mui/material';
+import Link from 'next/link';
 import { useAuth } from '../../../utils/context/authContext';
 import { deleteWedding, getSingleWedding } from '../../../utils/data/weddingData';
 import WeddingForm from '../../../components/forms/WeddingForm';
@@ -38,6 +39,9 @@ export default function EditWedding() {
           uid={user.uid}
         />
         <Button variant="text" onClick={onDelete}>Cancel Wedding</Button>
+        <Link passHref href="/weddings">
+          <Button variant="text">Back to Weddings</Button>
+        </Link>
       </ButtonGroup>
     </Paper>
   );
