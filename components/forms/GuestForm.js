@@ -78,7 +78,7 @@ export default function GuestForm({
         party,
         primary,
       });
-    }
+    } else setGuest(initialState);
   }, [uuid, firstName, lastName, wedding, participant, family, parent, party, primary]);
 
   const handleChange = (e) => {

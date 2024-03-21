@@ -41,12 +41,12 @@ export default function WeddingForm({
   };
 
   useEffect(() => {
-    if (uuid.length > 0) {
+    if (uuid.length > 1) {
       setWedding({
         venue,
         weddingName,
       });
-    }
+    } else setWedding(initialState);
   }, [uuid, venue, weddingName]);
 
   const handleChange = (e) => {
