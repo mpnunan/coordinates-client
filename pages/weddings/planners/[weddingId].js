@@ -33,9 +33,10 @@ export default function WeddingPlanners() {
             className={planner.readOnly === true ? 'weddingPlanners-planner readOnly' : 'weddingPlanners-planner'}
           >
             <WeddingPlannerForm
-              email={planner.planner?.email}
-              phoneNumber={planner.planner?.phone_number}
-              fullName={`${planner.planner?.first_name} ${planner.planner?.last_name}`}
+              plannerInfo={planner.planner.email || planner.planner.phone_number}
+              email={planner.planner.email}
+              phoneNumber={planner.planner.phone_number}
+              fullName={`${planner.planner.first_name} ${planner.planner.last_name}`}
               readOnly={planner.readOnly}
               wedding={weddingId}
               onUpdate={updateFunc}

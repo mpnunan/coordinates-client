@@ -14,26 +14,18 @@ import { useAuth } from '../../utils/context/authContext';
 import { addWeddingPlanner, removeWeddingPlanner, updateWeddingPlanner } from '../../utils/data/plannerData';
 
 const initialState = {
-  wedding: '',
-  email: '',
-  phoneNumber: 0,
+  phoneNumber: '',
   readOnly: false,
-};
-
-const initialInput = {
-  formInput: '',
 };
 
 export default function WeddingPlannerForm({
   wedding,
   fullName,
-  email,
   phoneNumber,
   readOnly,
   onUpdate,
 }) {
   const [weddingPlanner, setWeddingPlanner] = useState(initialState);
-  const [input, setInput] = useState(initialInput);
   const { user } = useAuth();
 
   const [open, setOpen] = useState(false);
@@ -51,31 +43,14 @@ export default function WeddingPlannerForm({
     handleClose();
   };
 
-  const deleteFunc = (info) => {
+  const remove = () => {
     if (window.confirm(`Remove ${fullName} from wedding planners?`)) {
-      removeWeddingPlanner(user.uid, wedding, info).then(() => plannerActions());
+      removeWeddingPlanner(user.uid, wedding, weddingPlanner).then(() => plannerActions());
     }
   };
 
-  const deleteWithEmail = () => {
-    deleteFunc(email);
-  };
-
-  const deleteWithPhoneNumber = () => {
-    deleteFunc(phoneNumber);
-  };
-
   useEffect(() => {
-    if (email.length > 0) {
-      setWeddingPlanner({
-        email,
-        readOnly,
-      });
-    }
-  }, [email, readOnly]);
-
-  useEffect(() => {
-    if (phoneNumber > 0) {
+    if (phoneNumber) {
       setWeddingPlanner({
         phoneNumber,
         readOnly,
@@ -83,19 +58,12 @@ export default function WeddingPlannerForm({
     }
   }, [phoneNumber, readOnly]);
 
-  const handleInput = (e) => {
-    setInput(e.target.value);
-    if (Number.isNaN(input)) {
-      setWeddingPlanner((prevState) => ({
-        ...prevState,
-        email: input,
-      }));
-    } else {
-      setWeddingPlanner((prevState) => ({
-        ...prevState,
-        phoneNumber: input,
-      }));
-    }
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setWeddingPlanner((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
   const handleToggle = (e) => {
@@ -108,7 +76,7 @@ export default function WeddingPlannerForm({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (email.length > 0 || phoneNumber.length > 0) {
+    if (phoneNumber) {
       updateWeddingPlanner(user.uid, wedding, weddingPlanner).then(() => plannerActions());
     } else {
       addWeddingPlanner(user.uid, wedding, weddingPlanner).then(() => plannerActions());
@@ -136,13 +104,13 @@ export default function WeddingPlannerForm({
             component="form"
             onSubmit={handleSubmit}
           >
-            {email.length > 0 || phoneNumber > 0 ? null : (
+            {phoneNumber ? null : (
               <TextField
                 label="Enter Phone Number or Email"
-                name="formInput"
-                value={input.formInput}
+                name="phoneNumber"
+                value={weddingPlanner.phoneNumber}
                 required
-                onChange={handleInput}
+                onChange={handleChange}
               />
             )}
             <FormControlLabel
@@ -161,8 +129,8 @@ export default function WeddingPlannerForm({
               Submit
             </Button>
           </FormControl>
-          {email.length > 0 || phoneNumber > 0 ? (
-            <Button variant="text" onClick={deleteWithEmail || deleteWithPhoneNumber}>
+          {phoneNumber ? (
+            <Button variant="text" onClick={remove}>
               Remove Wedding Planner
             </Button>
           ) : null}
@@ -175,8 +143,10 @@ export default function WeddingPlannerForm({
 WeddingPlannerForm.propTypes = {
   wedding: PropTypes.string,
   fullName: PropTypes.string,
-  email: PropTypes.string,
-  phoneNumber: PropTypes.number,
+  phoneNumber: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
   readOnly: PropTypes.bool,
   onUpdate: PropTypes.func,
 };
@@ -184,8 +154,7 @@ WeddingPlannerForm.propTypes = {
 WeddingPlannerForm.defaultProps = {
   wedding: initialState.wedding,
   fullName: '',
-  email: initialState.email,
-  phoneNumber: initialState.phoneNumber,
+  phoneNumber: null,
   readOnly: initialState.readOnly,
   onUpdate: null,
 };
