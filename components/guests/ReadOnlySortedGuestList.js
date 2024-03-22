@@ -5,9 +5,9 @@ import {
   Typography,
 } from '@mui/material';
 import PropTypes from 'prop-types';
-import SortedGuest from './SortedGuest';
+import ReadOnlySortedGuest from './ReadOnlySortedGuest';
 
-export default function SortedGuestList({
+export default function ReadOnlyReadOnlySortedGuestList({
   guests,
   family,
   party,
@@ -21,10 +21,9 @@ export default function SortedGuestList({
         <Typography className="listTitle" variant="h3">Guests</Typography>
         <List className="guestList-list">
           {guests?.map((guest) => (
-            <SortedGuest
+            <ReadOnlySortedGuest
               key={`guestList-guest-${guest.id}`}
               id={guest.id}
-              uuid={guest.uuid}
               fullName={guest.full_name}
               party={guest.party}
               primary={guest.primary}
@@ -41,10 +40,9 @@ export default function SortedGuestList({
           <Typography className="listTitle" variant="h3">Family</Typography>
           <List className="guestList-list">
             {family?.map((guest) => (
-              <SortedGuest
+              <ReadOnlySortedGuest
                 key={`guestList-family-${guest.id}`}
                 id={guest.id}
-                uuid={guest.uuid}
                 fullName={guest.full_name}
                 party={guest.party}
                 primary={guest.primary}
@@ -60,10 +58,9 @@ export default function SortedGuestList({
           <Typography className="listTitle" variant="h3">Wedding Party</Typography>
           <List className="guestList-list">
             {party?.map((guest) => (
-              <SortedGuest
+              <ReadOnlySortedGuest
                 key={`guestList-party-${guest.id}`}
                 id={guest.id}
-                uuid={guest.uuid}
                 fullName={guest.full_name}
                 party={guest.party}
                 primary={guest.primary}
@@ -79,10 +76,9 @@ export default function SortedGuestList({
           <Typography className="listTitle" variant="h3">Couples</Typography>
           <List className="guestList-list">
             {couples?.map((guest) => (
-              <SortedGuest
+              <ReadOnlySortedGuest
                 key={`guestList-couples-${guest.id}`}
                 id={guest.id}
-                uuid={guest.uuid}
                 fullName={guest.full_name}
                 party={guest.party}
                 primary={guest.primary}
@@ -100,10 +96,9 @@ export default function SortedGuestList({
           <Typography className="listTitle" variant="h3">Space Required</Typography>
           <List className="guestList-list">
             {problems?.map((guest) => (
-              <SortedGuest
+              <ReadOnlySortedGuest
                 key={`guestList-problems-${guest.id}`}
                 id={guest.id}
-                uuid={guest.uuid}
                 fullName={guest.full_name}
                 party={guest.party}
                 primary={guest.primary}
@@ -122,7 +117,7 @@ export default function SortedGuestList({
   );
 }
 
-SortedGuestList.propTypes = {
+ReadOnlyReadOnlySortedGuestList.propTypes = {
   guests: PropTypes.arrayOf(PropTypes.shape()),
   family: PropTypes.arrayOf(PropTypes.shape()),
   party: PropTypes.arrayOf(PropTypes.shape()),
@@ -131,7 +126,7 @@ SortedGuestList.propTypes = {
   tipSide: PropTypes.number,
 };
 
-SortedGuestList.defaultProps = {
+ReadOnlyReadOnlySortedGuestList.defaultProps = {
   guests: [],
   family: [],
   party: [],

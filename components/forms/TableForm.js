@@ -38,6 +38,7 @@ export default function TableForm({
 
   const tableCreated = () => {
     onUpdate();
+    setTable(initialState);
     handleClose();
   };
 
@@ -47,7 +48,7 @@ export default function TableForm({
         wedding,
         capacity,
       });
-    }
+    } else setTable(initialState);
   }, [uuid, wedding, capacity]);
 
   const handleChange = (e) => {

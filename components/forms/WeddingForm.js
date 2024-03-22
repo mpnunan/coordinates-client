@@ -7,6 +7,8 @@ import {
   DialogContent,
   DialogTitle,
   FormControl,
+  FormGroup,
+  FormLabel,
   TextField,
 } from '@mui/material';
 import { createWeddding, updateWedding } from '../../utils/data/weddingData';
@@ -14,6 +16,10 @@ import { createWeddding, updateWedding } from '../../utils/data/weddingData';
 const initialState = {
   venue: '',
   weddingName: '',
+  participantOneFirst: '',
+  participantOneLast: '',
+  participantTwoFirst: '',
+  participantTwoLast: '',
 };
 
 export default function WeddingForm({
@@ -37,16 +43,17 @@ export default function WeddingForm({
 
   const weddingCreated = () => {
     onUpdate();
+    setWedding(initialState);
     handleClose();
   };
 
   useEffect(() => {
-    if (uuid.length > 0) {
+    if (uuid.length > 1) {
       setWedding({
         venue,
         weddingName,
       });
-    }
+    } else setWedding(initialState);
   }, [uuid, venue, weddingName]);
 
   const handleChange = (e) => {
@@ -101,6 +108,44 @@ export default function WeddingForm({
               required
               onChange={handleChange}
             />
+            {venue ? null : (
+              <>
+                <FormGroup>
+                  <FormLabel>Participant One</FormLabel>
+                  <TextField
+                    label="First Name"
+                    name="participantOneFirst"
+                    value={wedding.participantOneFirst}
+                    required
+                    onChange={handleChange}
+                  />
+                  <TextField
+                    label="Last Name"
+                    name="participantOneLast"
+                    value={wedding.participantOneLast}
+                    required
+                    onChange={handleChange}
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <FormLabel>Participant Two</FormLabel>
+                  <TextField
+                    label="First Name"
+                    name="participantTwoFirst"
+                    value={wedding.participantTwoFirst}
+                    required
+                    onChange={handleChange}
+                  />
+                  <TextField
+                    label="Last Name"
+                    name="participantTwoLast"
+                    value={wedding.participantTwoLast}
+                    required
+                    onChange={handleChange}
+                  />
+                </FormGroup>
+              </>
+            )}
             <Button
               type="submit"
               variant="text"

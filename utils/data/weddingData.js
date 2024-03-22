@@ -2,8 +2,8 @@ import coordinates from '../axiosConfig';
 
 const getWeddings = async (uid) => {
   coordinates.defaults.headers.common.Authorization = uid;
-  const weddings = await coordinates.get('/weddings');
-  return Object.values(weddings.data);
+  const weddings = await coordinates.get('/wedding_list');
+  return weddings.data;
 };
 
 const getSingleWedding = async (uid, weddingId) => {
