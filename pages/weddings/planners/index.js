@@ -24,7 +24,7 @@ export default function PlannerInvite() {
         Choose Wedding
       </Typography>
       <Box className="weddingPlannerWeddings">
-        {weddings?.map((wedding) => (
+        {weddings.primary?.map((wedding) => (
           <Box
             key={`plannerWeddings-${wedding.wedding.id}`}
             className="weddingPlannerWeddings-wedding"

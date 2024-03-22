@@ -38,6 +38,7 @@ export default function TableForm({
 
   const tableCreated = () => {
     onUpdate();
+    setTable(initialState);
     handleClose();
   };
 

@@ -40,6 +40,7 @@ export default function WeddingPlannerForm({
 
   const plannerActions = () => {
     onUpdate();
+    setWeddingPlanner(initialState);
     handleClose();
   };
 

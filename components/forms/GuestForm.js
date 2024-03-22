@@ -57,6 +57,7 @@ export default function GuestForm({
 
   const guestCreated = () => {
     onUpdate();
+    setGuest(initialState);
     handleClose();
   };
 
