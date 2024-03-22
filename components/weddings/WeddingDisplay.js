@@ -29,9 +29,6 @@ export default function WeddingDisplay({
           <Link passHref href={`/weddings/tables/${id}`}>
             <Button>Tables</Button>
           </Link>
-          <Link passHref href={`/weddings/${id}`}>
-            <Button>Wedding Details</Button>
-          </Link>
           {uuid ? (
             <Link passHref href={`/weddings/edit/${id}`}>
               <Button>Alter Wedding</Button>

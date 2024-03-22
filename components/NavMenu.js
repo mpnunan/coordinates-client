@@ -15,6 +15,7 @@ import {
   Portrait,
   Yard,
 } from '@mui/icons-material';
+import { useRouter } from 'next/router';
 import { signOut } from '../utils/auth';
 
 export default function NavMenu() {
@@ -26,10 +27,12 @@ export default function NavMenu() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const router = useRouter();
 
   const logout = () => {
     handleClose();
     signOut();
+    router.push('/');
   };
 
   return (

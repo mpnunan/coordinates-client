@@ -56,7 +56,7 @@ export default function WeddingPlannerForm({
         phoneNumber,
         readOnly,
       });
-    } else setWeddingPlanner(initialState);
+    }
   }, [phoneNumber, readOnly]);
 
   const handleChange = (e) => {
